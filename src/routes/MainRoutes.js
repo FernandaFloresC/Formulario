@@ -29,7 +29,7 @@ const MainRoutes = {
       ),
       children: [
         {
-          path: 'sample-page',
+          path: 'Inicio',
           element: <SamplePage />
         }
       ]
