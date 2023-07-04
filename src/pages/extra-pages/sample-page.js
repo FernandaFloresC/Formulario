@@ -7,7 +7,7 @@ import * as React from 'react';
 
 // project import
 import MainCard from 'components/MainCard';
-import Select_visita from 'components/select/select_visita';
+// import Select_visita from 'components/select/select_visita';
 import Select_cita from 'components/select/select_cita';
 import { Box } from '@mui/material';
 
@@ -23,7 +23,7 @@ const SamplePage = () => {
       </Box>
 
       <Box  my={4}>
-       <Select_visita/>
+       {/* <Select_visita/> */}
       </Box> 
 
   {/* <LocalizationProvider dateAdapter={AdapterDayjs}>

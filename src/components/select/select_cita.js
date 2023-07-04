@@ -17,55 +17,100 @@ import { useState } from 'react';
 
 export default function Select_cita() {
 
-    const [seleccion, setSeleccion] = useState();
+  const [seleccion, setSeleccion] = useState();
+  const [visita, setVisita] = useState();
 
-    // const [santiago_centro, setSantiago_centro] = React.useState('');
-
-    
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-          Admisión ? <br></br>
-Agendar entrevista <br></br>
-30 min
-          </Typography>
-          <CardMedia
-          component="img"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="Imagen Cita Virtual"
-        />
-           <Box sx={{ minWidth: 120 }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Selecciona una Sede</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={seleccion}
-          label="Selecciona una Sede"
-          onChange={e => setSeleccion(e.target.value)}
-          //onChange={handleChange}
-        >{console.log(seleccion)}
-             <MenuItem value={0}>Selecciona una Sede</MenuItem>
-          <MenuItem value={'santiago_centro'}>Santiago Centro</MenuItem>
-          <MenuItem value={'la_florida'}>La Florida</MenuItem>
-          <MenuItem value={'maipu'}>Maipú</MenuItem>
-          <MenuItem value={'providencia'}>Providencia</MenuItem>
-          <MenuItem value={'vina_del_mar'}>Viña del Mar</MenuItem>
-          <MenuItem value={'regimen_online'}>Régimen Online</MenuItem>
-          <MenuItem value={'concepcion'}>Concepción</MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-        </CardContent>
-      </CardActionArea>
+    <Box>
       <Box>
- {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-     <DateTimePicker label="Basic date time picker" />
-        </LocalizationProvider> */}
+        <Card sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                Admisión ? <br></br>
+                Agendar entrevista <br></br>
+                30 min
+              </Typography>
+              <CardMedia
+                component="img"
+                height="140"
+                image="/static/images/cards/contemplative-reptile.jpg"
+                alt="Imagen Cita Virtual"
+              />
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Selecciona una Sede</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={seleccion}
+                    label="Selecciona una Sede"
+                    onChange={e => setSeleccion(e.target.value)}
+                  //onChange={handleChange}
+                  >{console.log(seleccion)}
+                    <MenuItem value={0}>Selecciona una Sede</MenuItem>
+                    <MenuItem value={'santiago_centro'}>Santiago Centro</MenuItem>
+                    <MenuItem value={'la_florida'}>La Florida</MenuItem>
+                    <MenuItem value={'maipu'}>Maipú</MenuItem>
+                    <MenuItem value={'providencia'}>Providencia</MenuItem>
+                    <MenuItem value={'vina_del_mar'}>Viña del Mar</MenuItem>
+                    <MenuItem value={'regimen_online'}>Régimen Online</MenuItem>
+                    <MenuItem value={'concepcion'}>Concepción</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </CardContent>
+          </CardActionArea>
+          <Box>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateTimePicker label="Basic date time picker" />
+            </LocalizationProvider> */}
+          </Box>
+        </Card>
       </Box>
-    </Card>
+
+      <Box my={5}>
+        <Card sx={{ maxWidth: 345 }}>
+          <CardActionArea>
+
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                Admisión ?
+                Agendar Visita
+                45 min
+              </Typography>
+              <CardMedia
+                component="img"
+                height="140"
+                image="/static/images/cards/contemplative-reptile.jpg"
+                alt="imagen visita campus"
+              />
+              <Box sx={{ minWidth: 120 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">Selecciona un Campus</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={visita}
+                    label="Selecciona un Campus"
+                    onChange={e => setVisita(e.target.value)}
+                  //onChange={handleChange}
+                  >{console.log(visita)}
+                    <MenuItem value={0}>Selecciona un Campus</MenuItem>
+                    <MenuItem value={'santiago_centro'}>Santiago Centro</MenuItem>
+                    <MenuItem value={'la_florida'}>La Florida</MenuItem>
+                    <MenuItem value={'maipu'}>Maipú</MenuItem>
+                    <MenuItem value={'providencia'}>Providencia</MenuItem>
+                    <MenuItem value={'vina_del_mar'}>Viña del Mar</MenuItem>
+                    <MenuItem value={'regimen_online'}>Régimen Online</MenuItem>
+                    <MenuItem value={'concepcion'}>Concepción</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      </Box>
+    </Box>
   );
 }
