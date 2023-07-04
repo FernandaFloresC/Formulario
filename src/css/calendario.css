@@ -1,0 +1,8 @@
+.calendario, #calendario{
+    border-width: 2rem;
+    border-color: #FF5200;
+}
+
+.calendario:hover, #calendario:hover {
+    border-color: black;
+}

@@ -10,7 +10,7 @@ import MainCard from 'components/MainCard';
 // import Select_visita from 'components/select/select_visita';
 import Select_cita from 'components/select/select_cita';
 import { Box, CardHeader } from '@mui/material';
-
+//import Calendario from 'components/Calendario';
 const SamplePage = () => {
 
 
@@ -25,12 +25,8 @@ const SamplePage = () => {
       </Box>
 
       <Box  my={4}>
-       {/* <Select_visita/> */}
+       {/* <Calendario/> */}
       </Box> 
-
-  {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-     <DateTimePicker label="Basic date time picker" />
-        </LocalizationProvider> */}
 
 </MainCard>
   )
