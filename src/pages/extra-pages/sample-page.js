@@ -9,7 +9,7 @@ import * as React from 'react';
 import MainCard from 'components/MainCard';
 import Select_visita from 'components/select/select_visita';
 import Select_cita from 'components/select/select_cita';
-import { Box } from '@mui/material';
+import { Box, CardHeader } from '@mui/material';
 
 const SamplePage = () => {
 
@@ -17,7 +17,9 @@ const SamplePage = () => {
   // console.log(DateTimePicker.AdapterDayjs + ' aqui')
   return(
   <MainCard title="Agenda tu Matrícula">
-
+ <CardHeader>
+  
+ </CardHeader>
       <Box my={5}>
        <Select_cita/>
       </Box>
