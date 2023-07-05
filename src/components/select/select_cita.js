@@ -125,7 +125,7 @@ export default function Select_cita() {
 
       {mostrarCalendario === true &&   (
             <Box sx={{ minWidth: 620 }}>
-              <Calendario selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
+              <Calendario selected={selectedDate}  onChange={(date) => setSelectedDate(date)} />
               {console.log('primer calendario')}
             </Box>
           )}

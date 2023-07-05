@@ -11,13 +11,13 @@ export default function Formulario() {
 
 
   return (
-    <MainCard title="Card Title" sx={{ height: '100%' }}>
+    <MainCard title="Formulario" sx={{ height: '100%' }}>
 
-  <Typography variant="h6">Card Subtitle</Typography>
+  <Typography variant="h6">Formulario</Typography>
 
   <Typography variant="caption" color="textSecondary">
 
-    This is card description
+    Este es tu formulario
 
   </Typography>
 
