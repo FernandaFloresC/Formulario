@@ -31,7 +31,7 @@ export default function Calendario() {
     shrink: true
   }}
 />
-{console.log(value + 'aqui')}
+{console.log(value)}
 {/* </LocalizationProvider> */}
 
     </Box>
