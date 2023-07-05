@@ -4,7 +4,7 @@ import { lazy } from 'react';
 import MainLayout from 'layout/MainLayout';
 import CommonLayout from 'layout/CommonLayout';
 import Loadable from 'components/Loadable';
-import AuthGuard from 'utils/route-guard/AuthGuard';
+//import AuthGuard from 'utils/route-guard/AuthGuard';
 
 // pages routing
 const MaintenanceError = Loadable(lazy(() => import('pages/maintenance/404')));
@@ -23,9 +23,9 @@ const MainRoutes = {
     {
       path: '/',
       element: (
-        <AuthGuard>
+        //<AuthGuard>
           <MainLayout />
-        </AuthGuard>
+        //</AuthGuard>
       ),
       children: [
         {

@@ -19,19 +19,21 @@ export default function Calendario() {
    {/* <LocalizationProvider sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1} dateAdapter={AdapterDayjs} > */}
       <TextField
       //dateAdapter={AdapterDayjs}
-  id="date"
-  placeholder=""
-  type="date"
-  //defaultValue="2017-05-24"
-  sx={{ width: 345 }}
-  value={value}
-  onChange={(newValue) => {setValue(newValue);
-  }}
-  InputLabelProps={{
-    shrink: true
-  }}
-/>
-{console.log(value + 'aqui')}
+        id="date"
+        placeholder=""
+        type="date"
+        //defaultValue="2017-05-24"
+        sx={{ width: 345 }}
+        inputFormat="MM/dd/yyyy"
+        //value={value}
+        //label="LALA"
+        onChange={(newValue) => {setValue(newValue);}}
+        InputLabelProps={{
+          shrink: true
+        }}
+      />
+{console.log(value)}
+
 {/* </LocalizationProvider> */}
 
     </Box>
