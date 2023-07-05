@@ -1,8 +1,10 @@
-.calendario, #calendario{
+.calendario{
     border-width: 2rem;
     border-color: #FF5200;
+    color: #FF5200;
+    
 }
 
-.calendario:hover, #calendario:hover {
-    border-color: black;
+.MuiButtonBase-root, .Mui-selected-root, .MuiTypography-roo{
+    color: #FF5200;
 }

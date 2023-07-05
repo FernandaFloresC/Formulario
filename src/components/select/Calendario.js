@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import Box from '@mui/material/Box';
-import '../css/calendario.css'
+import '../../css/calendario.css'
  import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
  import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
  //import { Typography } from '@mui/material';
@@ -9,7 +9,7 @@ import '../css/calendario.css'
  import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 //import { TextField } from '@mui/material';
 import { useState } from 'react';
-import Formulario from './select/formulario';
+import Formulario from './formulario';
 export default function Calendario() {
  // const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [value, setValue] = useState(null)
@@ -18,9 +18,9 @@ export default function Calendario() {
     <Box xs={12} sx={{  minWidth: 350, maxWidth: 645 , borderColor: '#FF5200' }} border={1} m={1} >
      
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateCalendar  onChange={(newValue) => {setValue(newValue);}}  type="date"  id="date" inputFormat="dd/MM/yyyy"
+      <DateCalendar className='calendario'  onChange={(newValue) => {setValue(newValue);}}  type="date"  id="date" inputFormat="dd/MM/yyyy"
         InputLabelProps={{
-          shrink: true
+          shrink: true,
         }}/>
     </LocalizationProvider>
   
