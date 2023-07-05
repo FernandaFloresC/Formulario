@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState } from 'react';
+
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -8,9 +10,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
-import { useState } from 'react';
+//import CameraIndoorIcon from '@mui/icons-material/CameraIndoor';
 
 import Calendario from 'components/Calendario';
+import campus from '../../assets/images/campus-udla.jpg'
+import cita from '../../assets/images/cita-udla.jpeg'
+
+//import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 
 export default function Select_cita() {
   const [seleccion, setSeleccion] = useState();
@@ -20,41 +27,26 @@ export default function Select_cita() {
   const [mostrarCalendario2, setMostrarCalendario2] = useState(false);
   const [selectedDate2, setSelectedDate2] = useState(null);
 
-  //const [nombreSeleccionado, setNombreSeleccionado] = useState('');
-
-  // const handleSeleccionChange = (e) => {
-  //   setSeleccion(e.target.value);
-  //   setNombreSeleccionado(e.target.options[e.target.selectedIndex].text);
-  //   setMostrarCalendario(true);
-  // };
 
   return (
-    <Box>
-     
-        <Box sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1}>
+
+<Grid container spacing={2}>
+<Grid xs={4}>
+        <Grid xs={12} sx={{ borderColor: '#FF5200' }} border={1} m={1}>
           <CardActionArea>
             <CardContent>
               <Typography gutterBottom variant="h5"  component="div">
               Admisión: <br />
-  Agendar entrevista <br />
-  30 min
+              Agendar entrevista <br />
+              30 min
               </Typography>
-              <CardMedia
-                component="img"
-                height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                alt="Imagen Cita Virtual"
-              />
-              <Box sx={{ minWidth: 120 }}>
+              <CardMedia component="img" height="240" width="300" image={cita} alt="Imagen Cita Virtual" />
+              <Box my={1} sx={{ minWidth: 150, maxWidth: '345' }} xs={6}>
                 <FormControl fullWidth>
                   <InputLabel bgcolor="#FF5200" id="demo-simple-select-label">
                     Selecciona una Sede
                   </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={seleccion}
-                    label="Selecciona una Sede"
+                  <Select labelId="demo-simple-select-label" id="demo-simple-select" value={seleccion} label="Selecciona una Sede"
                     onChange={(e) => {
                       setSeleccion(e.target.value);
                       setMostrarCalendario(true);
@@ -76,10 +68,9 @@ export default function Select_cita() {
               </Box>
             </CardContent>
           </CardActionArea>
-        </Box>
+        </Grid>
      
-      <Box my={5} sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1}>
-         
+      <Grid xs={12}  my={5} sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1}>
            <CardActionArea>
              <CardContent>
                <Typography gutterBottom variant="h5" component="div">
@@ -87,20 +78,11 @@ export default function Select_cita() {
                  Agendar Visita
                  45 min
                </Typography>
-               <CardMedia
-                component="img"
-                height="140"
-                image="/static/images/cards/contemplative-reptile.jpg"
-                alt="imagen visita campus"
-              />
-              <Box sx={{ minWidth: 120 }}>
+               <CardMedia component="img" height="240" width="300" image={campus} alt="imagen visita campus"  />
+              <Box  my={1} sx={{minWidth: 150, maxWidth: '345'}} xs={6}>
                 <FormControl fullWidth>
                   <InputLabel id="demo-simple-select-label">Selecciona un Campus</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={visita}
-                    label="Selecciona un Campus"
+                  <Select labelId="demo-simple-select-label" id="demo-simple-select" value={visita}  label="Selecciona un Campus"
                     onChange={(e) => {
                       setVisita(e.target.value);
                       setMostrarCalendario(false);
@@ -121,21 +103,22 @@ export default function Select_cita() {
               </Box>
             </CardContent>
           </CardActionArea>
-      </Box>
-
+      </Grid>
+      </Grid>
+      <Grid xs={8}>
       {mostrarCalendario === true &&   (
-            <Box sx={{ minWidth: 620 }}>
-              <Calendario selected={selectedDate}  onChange={(date) => setSelectedDate(date)} />
+            <Box xs={12}  >
+              <Calendario xs={12} sx={{ minWidth: 590 }} selected={selectedDate}  onChange={(date) => setSelectedDate(date)} />
               {console.log('primer calendario')}
             </Box>
           )}
            {mostrarCalendario2 === true &&   (
-            <Box sx={{ minWidth: 620 }}>
+            <Box xs={12} >
               <Calendario selected={selectedDate2} onChange={(date) => setSelectedDate2(date)} />
               {console.log('segundo calendario')}
             </Box>
           )}
-      </Box>
-      
+  </Grid>
+       </Grid>
   );
 }

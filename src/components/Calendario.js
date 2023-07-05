@@ -2,10 +2,11 @@ import * as React from 'react';
 
 import Box from '@mui/material/Box';
 import '../css/calendario.css'
- // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
- // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-//  import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { TextField } from '@mui/material';
+ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+ //import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+ import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+//import { TextField } from '@mui/material';
 import { useState } from 'react';
 import Formulario from './select/formulario';
 export default function Calendario() {
@@ -13,29 +14,31 @@ export default function Calendario() {
   const [value, setValue] = useState(null)
 
   return (
-    <Box sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1} >
-      {/* <LocalizationProvider sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1} dateAdapter={AdapterDayjs} >
-        <DateTimePicker  label="Basic date time picker" className='calendario' id='calendario'/>
-      </LocalizationProvider> */}
+    <Box xs={12} sx={{  minWidth: 350, maxWidth: 645 , borderColor: '#FF5200' }} border={1} m={1} >
+     
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DateCalendar  onChange={(newValue) => {setValue(newValue);}}  type="date"  id="date" inputFormat="dd/MM/yyyy"
+        InputLabelProps={{
+          shrink: true
+        }}/>
+    </LocalizationProvider>
   
-      <TextField
+      {/* <TextField
         id="date"
-        placeholder=""
         type="date"
-        sx={{ width: 345 }}
+        xs={12}
+        //sx={{ minWidth: 590 }}
         inputFormat="MM/dd/yyyy"
-        //value={value}
-        //label="LALA"
         onChange={(newValue) => {setValue(newValue);}}
         InputLabelProps={{
           shrink: true
         }}
-      />
+      /> */}
 
      {value !== null &&   (
-            <Box sx={{ minWidth: 620 }}>
-              <Formulario   />
-              {console.log('formulario?')}
+            <Box xs={12}>
+              <Formulario  />
+              {console.log( value.InputLabelProps)}
             </Box>
           )}
 
