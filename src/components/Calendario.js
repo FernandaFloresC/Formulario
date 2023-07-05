@@ -7,8 +7,9 @@ import '../css/calendario.css'
 //  import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { TextField } from '@mui/material';
 import { useState } from 'react';
+import Formulario from './select/formulario';
 export default function Calendario() {
-
+ // const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [value, setValue] = useState(null)
 
   return (
@@ -16,13 +17,11 @@ export default function Calendario() {
       {/* <LocalizationProvider sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1} dateAdapter={AdapterDayjs} >
         <DateTimePicker  label="Basic date time picker" className='calendario' id='calendario'/>
       </LocalizationProvider> */}
-   {/* <LocalizationProvider sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1} dateAdapter={AdapterDayjs} > */}
+  
       <TextField
-      //dateAdapter={AdapterDayjs}
         id="date"
         placeholder=""
         type="date"
-        //defaultValue="2017-05-24"
         sx={{ width: 345 }}
         inputFormat="MM/dd/yyyy"
         //value={value}
@@ -32,9 +31,14 @@ export default function Calendario() {
           shrink: true
         }}
       />
-{console.log(value)}
 
-{/* </LocalizationProvider> */}
+     {value !== null &&   (
+            <Box sx={{ minWidth: 620 }}>
+              <Formulario   />
+              {console.log('formulario?')}
+            </Box>
+          )}
+
 
     </Box>
   );
