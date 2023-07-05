@@ -17,6 +17,9 @@ export default function Select_cita() {
   const [visita, setVisita] = useState();
   const [mostrarCalendario, setMostrarCalendario] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null); // Estado para la fecha seleccionada
+  const [mostrarCalendario2, setMostrarCalendario2] = useState(false);
+  const [selectedDate2, setSelectedDate2] = useState(null);
+
   //const [nombreSeleccionado, setNombreSeleccionado] = useState('');
 
   // const handleSeleccionChange = (e) => {
@@ -54,7 +57,10 @@ export default function Select_cita() {
                     label="Selecciona una Sede"
                     onChange={(e) => {
                       setSeleccion(e.target.value);
-                      setMostrarCalendario(true); // Mostrar el calendario cuando se seleccione una sede
+                      setMostrarCalendario(true);
+                      setMostrarCalendario2(false)
+                      
+                      // Mostrar el calendario cuando se seleccione una sede
                     }}
                   >
                     <MenuItem value={0}>Selecciona un Campus</MenuItem>
@@ -97,7 +103,8 @@ export default function Select_cita() {
                     label="Selecciona un Campus"
                     onChange={(e) => {
                       setVisita(e.target.value);
-                      setMostrarCalendario(true); // Mostrar el calendario cuando se seleccione una sede
+                      setMostrarCalendario(false);
+                      setMostrarCalendario2(true); // Mostrar el calendario cuando se seleccione una sede
                     }}
                   //onChange={handleChange}
                   >{console.log(visita)}
@@ -119,6 +126,13 @@ export default function Select_cita() {
       {mostrarCalendario === true &&   (
             <Box sx={{ minWidth: 620 }}>
               <Calendario selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
+              {console.log('primer calendario')}
+            </Box>
+          )}
+           {mostrarCalendario2 === true &&   (
+            <Box sx={{ minWidth: 620 }}>
+              <Calendario selected={selectedDate2} onChange={(date) => setSelectedDate2(date)} />
+              {console.log('segundo calendario')}
             </Box>
           )}
       </Box>
