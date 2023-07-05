@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import '../css/calendario.css'
  import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
  import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+ //import { Typography } from '@mui/material';
  //import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
  import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 //import { TextField } from '@mui/material';
@@ -38,7 +39,11 @@ export default function Calendario() {
      {value !== null &&   (
             <Box xs={12}>
               <Formulario  />
-              {console.log( value.InputLabelProps)}
+              {/* <Typography gutterBottom variant="h2"  component="div">
+              {value.$d}
+              </Typography> */}
+            
+              {console.log( value.$d)}
             </Box>
           )}
 
