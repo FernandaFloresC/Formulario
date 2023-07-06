@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MainCard from 'components/MainCard';
-import { Typography, Box, Button } from '@mui/material';
+import { Typography, Box, Button, Stack } from '@mui/material';
 import { useEffect, useState  } from 'react';
 import Formulario from './formulario';
 //import axios from "axios";
@@ -10,11 +10,11 @@ import Formulario from './formulario';
 // import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 
-export default function Horario() {
+export default function Horario({flujo}) {
     const [data, setData]= useState([]);
     const [selectedHorario, setSelectedHorario] = useState('');
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
-
+    console.log(flujo)
 
     useEffect(() => {
 
@@ -51,14 +51,18 @@ export default function Horario() {
 
 
   return (
-    <MainCard title="Agendar Entrevista (logo)" sx={{ height: '100%' }}>
+    <MainCard title={"fecha" + flujo}  sx={{ height: '100%' }}>
 
       <Typography id='horario' variant="h6">Horario</Typography>
       {/* <Typography variant="h6">Espacio para la data que me llega desde los demas componentes</Typography> */}
 
       <Box sx={{ maxWidth: 500}} >
          {data.map((horarios, index) => (
-            <Button variant="contained" color="secondary" key={index} value={horarios} id={index} onClick={() => Guardar(horarios)}> {horarios}</Button>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: '24px 16px 0px', mt: 'auto' }} key={index}>
+          <Button variant="contained" color="secondary"  value={horarios} id={index} 
+            onClick={() => Guardar(horarios)}> {horarios}
+          </Button>
+          </Stack>
         ))}
       <p>Horario seleccionado: {selectedHorario}</p>
 

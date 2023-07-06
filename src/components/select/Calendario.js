@@ -14,14 +14,17 @@ dayjs.locale('es'); // Establecer el idioma en español
 
 export default function Calendario() {
   const [value, setValue] = useState(null);
+  const [visible, setVisible] = useState(false);
   const today = dayjs();
 
   return (
+
     <Box xs={12} sx={{ minWidth: 350, maxWidth: 645, borderColor: '#FF5200' }} border={1} m={1}>
+      {visible === false && (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DateCalendar
           className='calendario'
-          onChange={(newValue) => { setValue(newValue); }}
+          onChange={(newValue) => { setValue(newValue), setVisible(true); }}
           type="date"
           id="date"
           inputFormat="dd/MM/yyyy"
@@ -31,11 +34,12 @@ export default function Calendario() {
           minDate={today}
         />
       </LocalizationProvider>
+      )}
 
       {value !== null && (
         <Box xs={12}>
            <Box xs={12}>
-               <Horario  />
+               <Horario  flujo={value}/>
               {/* <Typography gutterBottom variant="h2"  component="div">
               {value.$d}
               </Typography> */}
