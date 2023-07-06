@@ -1,21 +1,18 @@
-import { Link as RouterLink } from 'react-router-dom';
 
 // material-ui
-import { Link, Stack, Typography } from '@mui/material';
+import {  Stack, Typography} from '@mui/material';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+
 
 const Footer = () => (
+
   <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: '24px 16px 0px', mt: 'auto' }}>
-    <Typography variant="caption">&copy; All rights reserved</Typography>
+    <Typography variant="caption">&copy; Copyright 2021 Soluziona <br/> Todos los derechos reservados</Typography>
     <Stack spacing={1.5} direction="row" justifyContent="space-between" alignItems="center">
-      <Link component={RouterLink} to="#" target="_blank" variant="caption" color="textPrimary">
-        About us
-      </Link>
-      <Link component={RouterLink} to="#" target="_blank" variant="caption" color="textPrimary">
-        Privacy
-      </Link>
-      <Link component={RouterLink} to="#" target="_blank" variant="caption" color="textPrimary">
-        Terms
-      </Link>
+      <MailOutlineIcon/>
+    <Typography variant="caption">
+     soporte@soluziona.cl 
+    </Typography>
     </Stack>
   </Stack>
 );

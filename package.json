@@ -1,5 +1,6 @@
 {
-  "name": "mantis-material-react",
+  "name": "mantis-calendar",
+  "homepage": "/Soluziona/Calendar",
   "version": "2.0.0",
   "private": true,
   "dependencies": {

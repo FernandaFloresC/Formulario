@@ -7,13 +7,13 @@ import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Box, Container, Toolbar } from '@mui/material';
 
 // project import
-import Drawer from './Drawer';
+//import Drawer from './Drawer';
 import Header from './Header';
 import Footer from './Footer';
-import HorizontalBar from './Drawer/HorizontalBar';
-import Breadcrumbs from 'components/@extended/Breadcrumbs';
+//import HorizontalBar from './Drawer/HorizontalBar';
+//import Breadcrumbs from 'components/@extended/Breadcrumbs';
 
-import navigation from 'menu-items';
+//import navigation from 'menu-items';
 import useConfig from 'hooks/useConfig';
 import { openDrawer } from 'store/reducers/menu';
 import { LAYOUT_CONST } from 'config';
@@ -57,7 +57,7 @@ const MainLayout = () => {
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
       <Header open={open} handleDrawerToggle={handleDrawerToggle} />
-      {!isHorizontal ? <Drawer open={open} handleDrawerToggle={handleDrawerToggle} /> : <HorizontalBar />}
+      {/* {!isHorizontal ? <Drawer open={open} handleDrawerToggle={handleDrawerToggle} /> : <HorizontalBar />} */}
       <Box component="main" sx={{ width: 'calc(100% - 260px)', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar sx={{ mt: isHorizontal ? 8 : 'inherit' }} />
         <Container
@@ -70,7 +70,7 @@ const MainLayout = () => {
             flexDirection: 'column'
           }}
         >
-          <Breadcrumbs navigation={navigation} title titleBottom card={false} divider={false} />
+          {/* <Breadcrumbs navigation={navigation} title titleBottom card={false} divider={false} /> */}
           <Outlet />
           <Footer />
         </Container>
