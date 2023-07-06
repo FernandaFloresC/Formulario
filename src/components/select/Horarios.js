@@ -2,6 +2,7 @@ import * as React from 'react';
 import MainCard from 'components/MainCard';
 import { Typography, Box, Button } from '@mui/material';
 import { useEffect, useState  } from 'react';
+import Formulario from './formulario';
 //import axios from "axios";
 
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -12,7 +13,7 @@ import { useEffect, useState  } from 'react';
 export default function Horario() {
     const [data, setData]= useState([]);
     const [selectedHorario, setSelectedHorario] = useState('');
-
+    const [mostrarFormulario, setMostrarFormulario] = useState(false);
 
 
     useEffect(() => {
@@ -43,6 +44,7 @@ export default function Horario() {
   const Guardar = async (horario) => {
     setSelectedHorario(horario);
     console.log(selectedHorario)
+    setMostrarFormulario(true)
 
   }
 
@@ -61,7 +63,12 @@ export default function Horario() {
       <p>Horario seleccionado: {selectedHorario}</p>
 
       </Box>
+      {mostrarFormulario === true &&   (
+      <Box sx={{ maxWidth: 500}} >
+         <Formulario/>
 
+      </Box>
+      )}
     </MainCard>
   );
 }

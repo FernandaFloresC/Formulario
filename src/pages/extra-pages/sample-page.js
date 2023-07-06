@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import MainCard from 'components/MainCard';
 import Select_cita from 'components/select/select_cita';
-import Horario from 'components/select/Horarios';
 
 // material-ui
 import { Box, Card } from '@mui/material';
@@ -15,9 +14,6 @@ const SamplePage = () => {
        <MainCard title="Agenda tu Matrícula">
       <Box my={5} >
         <Select_cita />
-      </Box>
-      <Box my={5} >
-        <Horario />
       </Box>
       </MainCard>
       </Card>
