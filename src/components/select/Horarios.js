@@ -10,10 +10,11 @@ import Formulario from './formulario';
 // import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 
-export default function Horario({flujo}) {
+export default function Horario({flujo, sede}) {
     const [data, setData]= useState([]);
     const [selectedHorario, setSelectedHorario] = useState('');
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    const [form_visible, setForm_visible] = useState(false);
     console.log(flujo)
 
     useEffect(() => {
@@ -45,18 +46,19 @@ export default function Horario({flujo}) {
     setSelectedHorario(horario);
     console.log(selectedHorario)
     setMostrarFormulario(true)
+    setForm_visible(true)
 
   }
 
 
 
   return (
-    <MainCard title={"fecha" + flujo}  sx={{ height: '100%' }}>
 
-      <Typography id='horario' variant="h6">Horario</Typography>
-      {/* <Typography variant="h6">Espacio para la data que me llega desde los demas componentes</Typography> */}
+    <MainCard title={"fecha " + flujo + " " + "sede "+ sede }  sx={{ height: '100%' }}>
 
+  {form_visible === false &&   (
       <Box sx={{ maxWidth: 500}} >
+        <Typography id='horario' variant="h6">Horario</Typography>
          {data.map((horarios, index) => (
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: '24px 16px 0px', mt: 'auto' }} key={index}>
           <Button variant="contained" color="secondary"  value={horarios} id={index} 
@@ -67,6 +69,8 @@ export default function Horario({flujo}) {
       <p>Horario seleccionado: {selectedHorario}</p>
 
       </Box>
+  )}
+
       {mostrarFormulario === true &&   (
       <Box sx={{ maxWidth: 500}} >
          <Formulario/>
