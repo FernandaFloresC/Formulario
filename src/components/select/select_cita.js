@@ -10,9 +10,10 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
-//import CameraIndoorIcon from '@mui/icons-material/CameraIndoor';
+import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
+import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 
-import Calendario from 'components/Calendario';
+import Calendario from 'components/select/Calendario';
 import campus from '../../assets/images/campus-udla.jpg'
 import cita from '../../assets/images/cita-udla.jpeg'
 
@@ -31,21 +32,22 @@ export default function Select_cita() {
   return (
 
 <Grid container spacing={2}>
-<Grid xs={4}>
-        <Grid xs={12} sx={{ borderColor: '#FF5200' }} border={1} m={1}>
+      <Grid xs={4}>
+        <Grid xs={12} m={2} >
           <CardActionArea>
             <CardContent>
-              <Typography gutterBottom variant="h5"  component="div">
-              Admisión: <br />
-              Agendar entrevista <br />
-              30 min
+              <Typography gutterBottom variant="h5"  component="div" >
+              {/* Admisión: <br /> */} 
+              <VideoChatOutlinedIcon sx={{ color: '#FF5200' }}/>  Agenda tu cita virtual <br />
+              {/* 30 min */}
               </Typography>
               <CardMedia component="img" height="240" width="300" image={cita} alt="Imagen Cita Virtual" />
               <Box my={1} sx={{ minWidth: 150, maxWidth: '345' }} xs={6}>
                 <FormControl fullWidth>
-                  <InputLabel bgcolor="#FF5200" id="demo-simple-select-label">
+                  <InputLabel  sx={{ borderColor: '#FF5200' }} border={1} m={1}id="demo-simple-select-label">
                     Selecciona una Sede
                   </InputLabel>
+                  {/* sx={{ borderColor: '#FF5200' }} border={1} m={1} */}
                   <Select labelId="demo-simple-select-label" id="demo-simple-select" value={seleccion} label="Selecciona una Sede"
                     onChange={(e) => {
                       setSeleccion(e.target.value);
@@ -70,13 +72,13 @@ export default function Select_cita() {
           </CardActionArea>
         </Grid>
      
-      <Grid xs={12}  my={5} sx={{ maxWidth: 345, borderColor: '#FF5200' }} border={1} m={1}>
+      <Grid xs={12}  m={2}  >
            <CardActionArea>
              <CardContent>
                <Typography gutterBottom variant="h5" component="div">
-                 Admisión ?
-                 Agendar Visita
-                 45 min
+               {/* Admisión: <br /> */}
+               <HomeWorkOutlinedIcon sx={{ color: '#FF5200' }}/> Visita nuestros campus  <br />
+               {/* 45 min */}
                </Typography>
                <CardMedia component="img" height="240" width="300" image={campus} alt="imagen visita campus"  />
               <Box  my={1} sx={{minWidth: 150, maxWidth: '345'}} xs={6}>
@@ -118,7 +120,7 @@ export default function Select_cita() {
               {console.log('segundo calendario')}
             </Box>
           )}
-  </Grid>
+      </Grid>
        </Grid>
   );
 }

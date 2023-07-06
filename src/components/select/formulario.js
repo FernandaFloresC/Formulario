@@ -30,7 +30,7 @@ export default function Formulario() {
 
 
   return (
-    <MainCard title="Formulario"  sx={{ height: '100%' }}>
+    <MainCard title="Agendar Entrevista (logo)" sx={{ height: '100%' }}>
 
       <Typography variant="h6">Introduzca los detalles</Typography>
       {/* <Typography variant="h6">Espacio para la data que me llega desde los demas componentes</Typography> */}
