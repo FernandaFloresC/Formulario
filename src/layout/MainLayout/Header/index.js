@@ -9,15 +9,15 @@ import { AppBar, Toolbar, useMediaQuery } from '@mui/material';
 import AppBarStyled from './AppBarStyled';
 import HeaderContent from './HeaderContent';
 import useConfig from 'hooks/useConfig';
-import IconButton from 'components/@extended/IconButton';
+//import IconButton from 'components/@extended/IconButton';
 import { LAYOUT_CONST } from 'config';
 
 // assets
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
+//import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 
 // ==============================|| MAIN LAYOUT - HEADER ||============================== //
 
-const Header = ({ open, handleDrawerToggle }) => {
+const Header = ({ open}) => {
   const theme = useTheme();
   const downLG = useMediaQuery(theme.breakpoints.down('lg'));
   const { menuOrientation } = useConfig();
@@ -27,13 +27,13 @@ const Header = ({ open, handleDrawerToggle }) => {
   // header content
   const headerContent = useMemo(() => <HeaderContent />, []);
 
-  const iconBackColorOpen = theme.palette.mode === 'dark' ? 'grey.200' : 'grey.300';
-  const iconBackColor = theme.palette.mode === 'dark' ? 'background.default' : 'grey.100';
+  //const iconBackColorOpen = theme.palette.mode === 'dark' ? 'grey.200' : 'grey.300';
+  //const iconBackColor = theme.palette.mode === 'dark' ? 'background.default' : 'grey.100';
 
   // common header
   const mainHeader = (
     <Toolbar>
-      {!isHorizontal ? (
+      {/* {!isHorizontal ? (
         <IconButton
           aria-label="open drawer"
           onClick={handleDrawerToggle}
@@ -44,7 +44,7 @@ const Header = ({ open, handleDrawerToggle }) => {
         >
           {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </IconButton>
-      ) : null}
+      ) : null} */}
       {headerContent}
     </Toolbar>
   );
@@ -55,9 +55,9 @@ const Header = ({ open, handleDrawerToggle }) => {
     color: 'inherit',
     elevation: 0,
     sx: {
-      borderBottom: `1px solid ${theme.palette.divider}`,
+      borderBottom: `2px solid ${theme.palette.divider}`,
       zIndex: 1200,
-      width: isHorizontal ? '100%' : open ? 'calc(100% - 260px)' : { xs: '100%', lg: 'calc(100% - 60px)' }
+      width: isHorizontal ? '100%' : open ? 'calc(100% - 260px)' : { xs: '100%', lg: 'calc(100% - 10px)' }
       // boxShadow: theme.customShadows.z1
     }
   };
@@ -66,10 +66,11 @@ const Header = ({ open, handleDrawerToggle }) => {
     <>
       {!downLG ? (
         <AppBarStyled open={open} {...appBar}>
-          {mainHeader}
+          {mainHeader}   
         </AppBarStyled>
+        
       ) : (
-        <AppBar {...appBar}>{mainHeader}</AppBar>
+        <AppBar {...appBar}>{mainHeader} </AppBar>
       )}
     </>
   );

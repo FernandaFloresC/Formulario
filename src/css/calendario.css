@@ -5,6 +5,11 @@
     
 }
 
-.MuiButtonBase-root, .Mui-selected-root, .MuiTypography-roo{
+.MuiButtonBase-root, .Mui-selected {
     color: #FF5200;
+}
+
+
+.MuiMenuItem-root, .MuiTypography-root{
+    color: black;
 }
