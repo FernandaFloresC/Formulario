@@ -5,10 +5,16 @@
     
 }
 
-.MuiButtonBase-root, .Mui-selected {
+.MuiButtonBase-root, .Mui-selected-true {
+    color: #FF5200;
+}
+.MuiButtonBase-root:hover, .Mui-selected-true:hover {
     color: #FF5200;
 }
 
+ .MuiPickersDay-root:hover .MuiPickersDay-dayWithMargin:hover .css-1p5wjjy-MuiButtonBase-root-MuiPickersDay-root:hover{
+    color: #FF5200;
+}
 
 .MuiMenuItem-root, .MuiTypography-root{
     color: black;

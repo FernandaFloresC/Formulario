@@ -56,7 +56,7 @@ export default function Select_cita() {
                       
                       // Mostrar el calendario cuando se seleccione una sede
                     }}
-                  >
+                  >{console.log(seleccion)}
                     <MenuItem value={0}>Selecciona un Campus</MenuItem>
                     <MenuItem value={'santiago_centro'}>Santiago Centro</MenuItem>
                     <MenuItem value={'la_florida'}>La Florida</MenuItem>
@@ -90,7 +90,6 @@ export default function Select_cita() {
                       setMostrarCalendario(false);
                       setMostrarCalendario2(true); // Mostrar el calendario cuando se seleccione una sede
                     }}
-                  //onChange={handleChange}
                   >{console.log(visita)}
                     <MenuItem value={0}>Selecciona un Campus</MenuItem>
                     <MenuItem value={'santiago_centro'}>Santiago Centro</MenuItem>

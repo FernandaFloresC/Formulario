@@ -19,7 +19,7 @@ const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')))
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  path: '/Soluziona/Calendar',
+  path: '/Soluziona/Calendar/',
   children: [
     {
       path: '',
@@ -31,7 +31,7 @@ const MainRoutes = {
       ),
       children: [
         {
-          path: 'Inicio',
+          path: '',
           element: <SamplePage />
         }
       ]

@@ -55,11 +55,11 @@ export default function Horario({flujo}) {
 
       <Typography id='horario' variant="h6">Horario</Typography>
       {/* <Typography variant="h6">Espacio para la data que me llega desde los demas componentes</Typography> */}
-
+      
       <Box sx={{ maxWidth: 500}} >
          {data.map((horarios, index) => (
-          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: '24px 16px 0px', mt: 'auto' }} key={index}>
-          <Button variant="contained" color="secondary"  value={horarios} id={index} 
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: '24px 16px 0px', mt: 'auto'}} key={index}>
+          <Button color='warning' variant="contained"value={horarios} id={index} 
             onClick={() => Guardar(horarios)}> {horarios}
           </Button>
           </Stack>
