@@ -5,12 +5,12 @@ import { useEffect, useState  } from 'react';
 import Formulario from './formulario';
 //import axios from "axios";
 import dayjs from 'dayjs';
-import 'dayjs/locale/es';
+// import 'dayjs/locale/es';
 // import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 // import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 // import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
-dayjs.locale('es');
+// dayjs.locale('es');
 
 export default function Horario({ flujo , sede}) {
 
@@ -18,7 +18,7 @@ export default function Horario({ flujo , sede}) {
 
     const [data, setData]= useState([]);
     const [selectedHorario, setSelectedHorario] = useState('');
-    const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    const [showFormulario, setShowFormulario] = useState(false);
     //const [form_visible, setForm_visible] = useState(false);
     console.log(flujo)
     console.log(formattedDate)
@@ -31,9 +31,10 @@ export default function Horario({ flujo , sede}) {
       const horarios = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00'];
       setData(horarios);
     };
+  
     const guardarHorario = (horario) => {
       setSelectedHorario(horario);
-      setMostrarFormulario(true);
+      setShowFormulario(true);
     };
 
   //   useEffect(() => {
@@ -73,9 +74,9 @@ export default function Horario({ flujo , sede}) {
 
   return (
 
-    <MainCard title={"Fecha " + [formattedDate] + " " + "Sede "+ sede } sx={{ height: '100%' }}>
-   {/* <p>Fecha seleccionada: {formattedDate}</p> */}
-   {mostrarFormulario === false ? (
+    <MainCard sx={{ height: '100%' }}>
+      {!showFormulario ? (
+         <MainCard title={`Fecha ${formattedDate} - Sede ${sede}`} sx={{ height: '100%' }}>
         <Box sx={{ maxWidth: 500 }}>
           <Typography variant="h6">Horario</Typography>
           {data.map((horario, index) => (
@@ -85,12 +86,11 @@ export default function Horario({ flujo , sede}) {
               </Button>
             </Stack>
           ))}
-          
         </Box>
+        </MainCard>
       ) : (
-        <Box sx={{ maxWidth: 500 }} >
-          <Formulario sede={sede} formattedDate={formattedDate} selectedHorario={selectedHorario} />
-          {/* <p>Horario seleccionado: {selectedHorario}</p> */}
+        <Box sx={{ maxWidth: 500 }}>
+          <Formulario sede={sede} formattedDate={formattedDate} selectedHorario={selectedHorario} showFormulario={showFormulario}/>
         </Box>
       )}
     </MainCard>

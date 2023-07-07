@@ -7,7 +7,7 @@ import { Typography, Box, TextField, Button } from '@mui/material';
 // import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 
-export default function Formulario({ sede, formattedDate, selectedHorario }) {
+export default function Formulario({ sede, formattedDate, selectedHorario, showFormulario }) {
 
   const Guardar = async () => {
 
@@ -24,15 +24,13 @@ export default function Formulario({ sede, formattedDate, selectedHorario }) {
       console.log('campos listos')
     }
 
-
   }
 
-  // title={`Agendar Entrevista - Fecha ${formattedDate} - Sede ${sede} - Hora ${selectedHorario}`}
-  // title={"Agendar Entrevista" + "  " + "Fecha " + formattedDate + " " + "Sede "+ sede + '  '  + 'Hora' + '' + [selectedHorario]} sx={{ height: '100%' }}
+ 
   return (
     <MainCard
       title={`Agendar Entrevista - Fecha ${formattedDate} - Sede ${sede} - Hora ${selectedHorario}`}
-      sx={{ height: '100%' }}
+      sx={{ height: '100%' }} show={showFormulario}
     >
 
       <Typography variant="h6">Introduzca los detalles</Typography>
