@@ -72,6 +72,10 @@ export default function Select_cita() {
           </CardActionArea>
         </Grid>
      
+
+
+
+
       <Grid xs={12}  m={2}  >
            <CardActionArea>
              <CardContent>
@@ -109,14 +113,12 @@ export default function Select_cita() {
       <Grid xs={8}>
       {mostrarCalendario === true &&   (
             <Box xs={12}  >
-              <Calendario xs={12} sx={{ minWidth: 590 }} selected={selectedDate}  onChange={(date) => setSelectedDate(date)} />
-              {console.log('primer calendario')}
+              <Calendario xs={12} sx={{ minWidth: 590 }} sede={seleccion} selected={selectedDate}  onChange={(date) => setSelectedDate(date)} />
             </Box>
           )}
            {mostrarCalendario2 === true &&   (
             <Box xs={12} >
-              <Calendario selected={selectedDate2} onChange={(date) => setSelectedDate2(date)} />
-              {console.log('segundo calendario')}
+              <Calendario sede={visita} selected={selectedDate2} onChange={(date) => setSelectedDate2(date)} />
             </Box>
           )}
       </Grid>
