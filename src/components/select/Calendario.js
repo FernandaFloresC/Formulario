@@ -39,8 +39,8 @@ export default function Calendario(sede) {
  
 
   return (
-    <Grid xs={12} md={12} lg={12} xl={12}>
-    <Box sx={{ minWidth: 350, maxWidth: 645, borderColor: '#FF5200'}} border={1} m={1}>
+    <Grid >
+    <Box sx={{borderColor: '#FF5200'}} border={1} m={1}>
       {visible === false && (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar
@@ -60,16 +60,14 @@ export default function Calendario(sede) {
         </LocalizationProvider>
       )}
       {value !== null && (
-        <Grid xs={12}>
-        
-          <Box xs={12}>
-            <MainCard sx={{ height: '100%' }}>
+        <Grid sx={{ minWidth: 630 }}>
+          {/* <Box > */}
+            <MainCard>
             <img src={udla} alt='udla' width={100} />
-              {/* <p>{lugar}</p> */}
             </MainCard>
             <Horario flujo={value} sede={lugar} />
             {/* {console.log(value.$d)} */}
-          </Box>
+          {/* </Box> */}
        
        </Grid>
       )}

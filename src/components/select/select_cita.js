@@ -27,7 +27,7 @@ export default function Select_cita() {
   const [selectedDate2, setSelectedDate2] = useState(null);
 
   return (
-    <Grid container spacing={2}>
+    <Grid container>
       <Grid>
       <Grid item xs={12} sm={12} md={12} lg={12}>
         <CardActionArea>
@@ -36,7 +36,7 @@ export default function Select_cita() {
               <VideoChatOutlinedIcon sx={{ color: '#FF5200' }}/> Agenda tu cita virtual
             </Typography>
             <CardMedia component="img" height="240" width="300" image={cita} alt="Imagen Cita Virtual" />
-            <Box my={1} sx={{ minWidth: 150, maxWidth: '345' }}>
+            <Box my={1}>
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">
                   Selecciona una Sede
@@ -74,7 +74,7 @@ export default function Select_cita() {
               <HomeWorkOutlinedIcon sx={{ color: '#FF5200' }}/> Visita nuestros campus
             </Typography>
             <CardMedia component="img" height="240" width="300" image={campus} alt="imagen visita campus"  />
-            <Box my={1} sx={{ minWidth: 150, maxWidth: '345' }}>
+            <Box my={1} >
               <FormControl fullWidth>
                 <InputLabel id="demo-simple-select-label">Selecciona un Campus</InputLabel>
                 <Select
@@ -104,17 +104,17 @@ export default function Select_cita() {
       </Grid>
       </Grid>
       <Grid>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
+      <Grid >
         <Grid>
           {mostrarCalendario && (
-            <Grid item xs={12}>
-              <Calendario xs={12} sx={{ minWidth: 590 }} sede={seleccion} selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
-            </Grid>
+            <Box sx={{ minWidth: 650 }}>
+              <Calendario sede={seleccion} selected={selectedDate} onChange={(date) => setSelectedDate(date)} />
+            </Box>
           )}
           {mostrarCalendario2 && (
-            <Grid item xs={12}>
+            <Box sx={{ minWidth: 650 }}>
               <Calendario sede={visita} selected={selectedDate2} onChange={(date) => setSelectedDate2(date)} />
-            </Grid>
+            </Box>
           )}
         </Grid>
       </Grid>

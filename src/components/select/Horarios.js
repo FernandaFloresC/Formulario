@@ -74,14 +74,14 @@ export default function Horario({ flujo , sede}) {
 
   return (
 
-    <MainCard sx={{ height: '100%' }}>
+    <MainCard>
       {!showFormulario ? (
-         <MainCard title={`Fecha ${formattedDate} - Sede ${sede}`} sx={{ height: '100%' }}>
-        <Box sx={{ maxWidth: 500 }}>
+         <MainCard title={`Fecha ${formattedDate} - Sede ${sede}`}>
+        <Box>
           <Typography variant="h6">Horario</Typography>
           {data.map((horario, index) => (
             <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ p: '24px 16px 0px', mt: 'auto' }} key={index}>
-              <Button color="warning" variant="contained" value={horario} onClick={() => guardarHorario(horario)}>
+              <Button sx={{backgroundColor:'#FF5200', color:'white'}} fullWidth variant="outlined" value={horario} onClick={() => guardarHorario(horario)}>
                 {horario}
               </Button>
             </Stack>
@@ -89,7 +89,7 @@ export default function Horario({ flujo , sede}) {
         </Box>
         </MainCard>
       ) : (
-        <Box sx={{ maxWidth: 500 }}>
+        <Box sx={{ maxWidth: 650 }}>
           <Formulario sede={sede} formattedDate={formattedDate} selectedHorario={selectedHorario} showFormulario={showFormulario}/>
         </Box>
       )}

@@ -29,27 +29,21 @@ export default function Formulario({ sede, formattedDate, selectedHorario, showF
 
  
   return (
+
     <MainCard
       title={`Agendar Entrevista - Fecha ${formattedDate} - Sede ${sede} - Hora ${selectedHorario}`}
-      sx={{ height: '100%' }} show={showFormulario}
-    >
+       show={showFormulario} >
 
       <Typography variant="h6">Introduzca los detalles</Typography>
-      {/* <Typography variant="h6">Espacio para la data que me llega desde los demas componentes</Typography> */}
 
-      <Box sx={{ maxWidth: 500}} >
+      <Box  >
 
       <TextField id="nombre" label="Nombre" fullWidth variant="standard"  margin="dense"/> 
-
       <TextField id="correo" label="Correo Electronico" fullWidth variant="standard" margin="dense" />
-
       <TextField id="telefono" label="Telefono" fullWidth variant="standard"   margin="dense"/>
-
       <TextField id="rut" label="Rut" fullWidth variant="standard"  margin="dense" />
-
       <TextField id="comentario" fullWidth label="Comentario"  margin="dense"
       multiline rows={5} />
-
 
       <Button variant="contained" color="error" margin="dense" onClick={() => Guardar()}> 
         Programar Evento
