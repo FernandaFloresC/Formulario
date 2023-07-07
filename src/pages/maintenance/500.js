@@ -5,10 +5,10 @@ import { APP_DEFAULT_PATH } from 'config';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { useMediaQuery, Box, Button, Grid, Stack, Typography } from '@mui/material';
+import { useMediaQuery, Button, Grid, Stack, Typography } from '@mui/material';
 
 // assets
-import error500 from 'assets/images/maintenance/Error500.png';
+// import error500 from 'assets/images/maintenance/Error500.png';
 
 // ==============================|| ERROR 500 - MAIN ||============================== //
 
@@ -19,21 +19,21 @@ function Error500() {
   return (
     <>
       <Grid container direction="column" alignItems="center" justifyContent="center" sx={{ minHeight: '100vh' }}>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <Box sx={{ width: { xs: 350, sm: 396 } }}>
             <img src={error500} alt="mantis" style={{ height: '100%', width: '100%' }} />
           </Box>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <Stack justifyContent="center" alignItems="center">
             <Typography align="center" variant={matchDownSM ? 'h2' : 'h1'}>
-              Internal Server Error
+              Gracias por agendar
             </Typography>
-            <Typography color="textSecondary" variant="body2" align="center" sx={{ width: { xs: '73%', sm: '70%' }, mt: 1 }}>
+            {/* <Typography color="textSecondary" variant="body2" align="center" sx={{ width: { xs: '73%', sm: '70%' }, mt: 1 }}>
               Server error 500. we fixing the problem. please try again at a later stage.
-            </Typography>
+            </Typography> */}
             <Button component={Link} to={APP_DEFAULT_PATH} variant="contained" sx={{ textTransform: 'none', mt: 4 }}>
-              Back To Home
+              Volver
             </Button>
           </Stack>
         </Grid>

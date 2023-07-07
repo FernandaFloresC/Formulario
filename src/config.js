@@ -9,7 +9,7 @@ export const LAYOUT_CONST = {
   HORIZONTAL_LAYOUT: 'horizontal'
 };
 
-export const APP_DEFAULT_PATH = '/Inicio';
+export const APP_DEFAULT_PATH = '/Soluziona/Calendar';
 export const HORIZONTAL_MAX_ITEM = 6;
 export const DRAWER_WIDTH = 260;
 

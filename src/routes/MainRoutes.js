@@ -33,6 +33,10 @@ const MainRoutes = {
         {
           path: '',
           element: <SamplePage />
+        },
+        {
+          path: 'fin',
+          element: <MaintenanceError500 />
         }
       ]
     },

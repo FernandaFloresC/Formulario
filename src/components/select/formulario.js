@@ -22,6 +22,7 @@ export default function Formulario({ sede, formattedDate, selectedHorario, showF
       console.log('rellena los campos por favor')
     }else{
       console.log('campos listos')
+      window.location.href = '/Soluziona/Calendar/fin';
     }
 
   }
@@ -51,7 +52,6 @@ export default function Formulario({ sede, formattedDate, selectedHorario, showF
 
 
       <Button variant="contained" color="error" margin="dense" onClick={() => Guardar()}> 
-      {/* onClick={(e) => Guardar() */}
         Programar Evento
       </Button>
 
