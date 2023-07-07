@@ -9,6 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
+import { Grid } from '@mui/material';
 // import 'dayjs/locale/es';
 
 // dayjs.locale('es');
@@ -38,7 +39,8 @@ export default function Calendario(sede) {
  
 
   return (
-    <Box xs={12} sx={{ minWidth: 350, maxWidth: 645, borderColor: '#FF5200' }} border={1} m={1}>
+    <Grid xs={12} md={12} lg={12} xl={12}>
+    <Box sx={{ minWidth: 350, maxWidth: 645, borderColor: '#FF5200'}} border={1} m={1}>
       {visible === false && (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DateCalendar
@@ -58,7 +60,8 @@ export default function Calendario(sede) {
         </LocalizationProvider>
       )}
       {value !== null && (
-        <Box xs={12}>
+        <Grid xs={12}>
+        
           <Box xs={12}>
             <MainCard sx={{ height: '100%' }}>
             <img src={udla} alt='udla' width={100} />
@@ -67,9 +70,11 @@ export default function Calendario(sede) {
             <Horario flujo={value} sede={lugar} />
             {/* {console.log(value.$d)} */}
           </Box>
-        </Box>
+       
+       </Grid>
       )}
     </Box>
+    </Grid>
   );
 }
 
