@@ -1,11 +1,10 @@
-.calendario{
+/* .calendario{
     border-width: 2rem;
     border-color: #FF5200;
     color: #FF5200;
-    
-}
+} */
 
-.MuiButtonBase-root, .Mui-selected-true {
+.MuiButtonBase-root, .Mui-selected-true, .isWeekday {
     color: #FF5200;
 }
 .MuiButtonBase-root:hover, .Mui-selected-true:hover {

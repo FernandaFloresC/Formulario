@@ -10,9 +10,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import dayjs from 'dayjs';
 import { Grid } from '@mui/material';
-// import 'dayjs/locale/es';
+ import 'dayjs/locale/es';
 
-// dayjs.locale('es');
+ dayjs.locale('es');
 
 export default function Calendario(sede) {
   const [value, setValue] = useState(null);
@@ -41,13 +41,18 @@ export default function Calendario(sede) {
   return (
     <Grid >
     <Box sx={{borderColor: '#FF5200'}} border={1} m={1}>
+    <MainCard>
+            <img src={udla} alt='udla' width={100} />
+            </MainCard>
       {visible === false && (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
           <DateCalendar
             className='calendario'
             onChange={(newValue) => { setValue(newValue), setVisible(true); }}
             type='date'
             id='date'
+            locale='es'
             inputFormat='dd/MM/yyyy'
             InputLabelProps={{
               shrink: true,
@@ -62,9 +67,7 @@ export default function Calendario(sede) {
       {value !== null && (
         <Grid sx={{ minWidth: 630 }}>
           {/* <Box > */}
-            <MainCard>
-            <img src={udla} alt='udla' width={100} />
-            </MainCard>
+    
             <Horario flujo={value} sede={lugar} />
             {/* {console.log(value.$d)} */}
           {/* </Box> */}
