@@ -28,7 +28,7 @@ export default function Select_cita() {
 
   const SelectVisita = () => {
     if(setVisita !== '0'){
-      setSeleccion('')
+      setSeleccion('Selecciona un Campus')
     }
   };
 
@@ -61,7 +61,7 @@ export default function Select_cita() {
                     }}
                   >
                     {console.log(seleccion)}
-                    <MenuItem value={''}>Selecciona un Campus</MenuItem>
+                    <MenuItem value={'Selecciona un Campus'}>Selecciona un Campus</MenuItem>
                     <MenuItem value={'Santiago Centro'}>Santiago Centro</MenuItem>
                     <MenuItem value={'La Florida'}>La Florida</MenuItem>
                     <MenuItem value={'Maipu'}>Maipú</MenuItem>
@@ -75,6 +75,8 @@ export default function Select_cita() {
             </CardContent>
           </CardActionArea>
         </Grid>
+
+        {console.log(seleccion)}
 
         <Grid item xs={12} sm={12} md={12} lg={12}>
           <CardActionArea>
@@ -98,7 +100,7 @@ export default function Select_cita() {
                       SelectVisita()
                     }}
                   >
-                    <MenuItem value={''}>Selecciona un Campus</MenuItem>
+                    <MenuItem value={'Selecciona un Campus'}>Selecciona un Campus</MenuItem>
                     <MenuItem value={'Santiago Centro'}>Santiago Centro</MenuItem>
                     <MenuItem value={'La Florida'}>La Florida</MenuItem>
                     <MenuItem value={'Maipu'}>Maipú</MenuItem>
