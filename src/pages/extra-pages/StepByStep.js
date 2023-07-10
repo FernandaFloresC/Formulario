@@ -5,10 +5,41 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+//import Select_cita from 'components/select/select_cita';
+//import Calendario from 'components/select/Calendario';
+import Horario from 'components/select/Horarios';
 
-const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+import { useState } from 'react';
+import Grid from '@mui/material/Grid';
+
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import { CardActionArea } from '@mui/material';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
+//import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+
+import Calendario from 'components/select/Calendario';
+//import campus from '../../assets/images/campus-udla.jpg';
+import cita from '../../assets/images/cita-udla.jpeg';
+
+const steps = ['Sede o Cita', 'Fechas', 'Horarios', 'Agentes', 'Guardado'];
 
 export default function HorizontalNonLinearStepper() {
+
+  const [seleccion, setSeleccion] = useState();
+  //const [visita, setVisita] = useState();
+  //const [mostrarCalendario, setMostrarCalendario] = useState(false);
+  //const [selectedDate, setSelectedDate] = useState(null);
+  //const [mostrarCalendario2, setMostrarCalendario2] = useState(false);
+  //const [selectedDate2, setSelectedDate2] = useState(null);
+
+  
+
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
 
@@ -58,6 +89,56 @@ export default function HorizontalNonLinearStepper() {
     setCompleted({});
   };
 
+  const renderStepContent = (step) => {
+    switch (step) {
+      case 0:
+        // return <div>Sede o Cita Content</div>;
+        return    <Grid item xs={12} sm={12} md={12} lg={12}>
+        <CardActionArea>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              <VideoChatOutlinedIcon sx={{ color: '#FF5200' }} /> Agenda tu cita virtual
+            </Typography>
+            <CardMedia component="img" height="240" width="300" image={cita} alt="Imagen Cita Virtual" />
+            <Box my={1}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  Selecciona una Sede
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={seleccion}
+                  label="Selecciona una Sede"
+                  onChange={(e) => {
+                    setSeleccion(e.target.value);
+                    setMostrarCalendario(true);
+                    setMostrarCalendario2(false);
+                  }}
+                >
+                  {console.log(seleccion)}
+                  <MenuItem value={''}>Selecciona una opción</MenuItem>
+                  <MenuItem value={'Sede'}>Sede </MenuItem>
+                  <MenuItem value={'Cita'}>Cita</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Grid>
+      case 1:
+        return <Calendario />
+      case 2:
+        return <Horario />
+      case 3:
+        return <div>Agentes Content</div>;
+      case 4:
+        return <div>Guardado Content</div>;
+      default:
+        return null;
+    }
+  };
+
   return (
     <Box sx={{ width: '100%' }}>
       <Stepper nonLinear activeStep={activeStep}>
@@ -86,6 +167,8 @@ export default function HorizontalNonLinearStepper() {
               Step {activeStep + 1}
             </Typography>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              {renderStepContent(activeStep)}
+              <Box sx={{ flex: '1 1 auto' }} />
               <Button
                 color="inherit"
                 disabled={activeStep === 0}
