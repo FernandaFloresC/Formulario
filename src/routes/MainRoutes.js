@@ -15,6 +15,7 @@ const MaintenanceComingSoon = Loadable(lazy(() => import('pages/maintenance/comi
 
 // render - sample page
 const SamplePage = Loadable(lazy(() => import('pages/extra-pages/sample-page')));
+const HorizontalNonLinearStepper = Loadable(lazy(() => import('pages/extra-pages/StepByStep')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -33,6 +34,10 @@ const MainRoutes = {
         {
           path: '',
           element: <SamplePage />
+        },
+        {
+          path: 'StepByStep',
+          element: <HorizontalNonLinearStepper />
         },
         {
           path: 'fin',

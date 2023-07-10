@@ -1,6 +1,7 @@
 import Horario from './Horarios';
 import React, { useState } from 'react';
 
+import '../../css/calendario.css'
 import udla from '../../assets/images/logo.png'
 
 import Box from '@mui/material/Box';
@@ -48,7 +49,7 @@ export default function Calendario(sede) {
         
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
           <DateCalendar
-            className='calendario'
+            className='calendario rounded-warning'
             onChange={(newValue) => { setValue(newValue), setVisible(true); }}
             type='date'
             id='date'
