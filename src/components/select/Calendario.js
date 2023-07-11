@@ -1,7 +1,7 @@
 import Horario from './Horarios';
 import React, { useState } from 'react';
 
-import '../../css/calendario.css'
+import '../../css/general.css'
 import udla from '../../assets/images/logo.png'
 
 import Box from '@mui/material/Box';

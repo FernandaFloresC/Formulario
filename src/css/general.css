@@ -1,0 +1,40 @@
+.calendario, .MuiDateCalendar-root , .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root, .MuiPickersDay-dayWithMargin, 	.MuiDateCalendar-viewTransitionContainer{
+    border-width: 2rem;
+    border-color: #FF5200;
+    
+    color: #FF5200;
+}
+.pasos{
+    background-color: #ec7809;
+    /* color: #FF5200; */
+    color: white;
+}
+.siguiente:hover {
+    background-color: #ec7809;
+    color: white;
+  }
+  .paso {
+   color: #ec7809;
+  }
+
+/* .MuiStepLabel-labelContainer, .siguiente:hover {
+    color: #FF5200;
+}  */
+/* .calendar{
+    width: 800px;
+    height: 700px;
+} */
+/* .MuiStepLabel-root, .MuiStepper-root{
+    color: #FF5200;
+} */
+
+/* .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root.Mui-selected{
+    
+} */
+.css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected){
+    border: transparent;
+}
+.MuiMenuItem-root{
+    color: black;
+}
+
