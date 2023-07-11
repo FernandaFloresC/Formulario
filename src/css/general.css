@@ -31,6 +31,11 @@
 /* .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root.Mui-selected{
     
 } */
+.MuiGrid-root {
+    width: 50%;
+    
+}
+
 .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected){
     border: transparent;
 }
