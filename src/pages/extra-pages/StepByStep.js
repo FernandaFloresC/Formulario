@@ -68,7 +68,7 @@ export default function HorizontalNonLinearStepper() {
   const [canProceed, setCanProceed] = useState(false);
   const [canProceed1, setCanProceed1] = useState(false);
   const [canProceed2, setCanProceed2] = useState(false);
-  const [canProceed3] = useState(false);
+  const [canProceed3, setCanProceed3] = useState(false);
 
   
   const totalSteps = () => {
@@ -250,6 +250,7 @@ export default function HorizontalNonLinearStepper() {
                       label="final"
                       onChange={(e) => {
                         setSeleccionFin(e.target.value);
+                        setCanProceed2(e.target.value !== '')
                       }}
                     >
                       {console.log(seleccionFin)}
@@ -289,6 +290,7 @@ export default function HorizontalNonLinearStepper() {
                       label="Duracion"
                       onChange={(e) => {
                         setSeleccion(e.target.value);
+                        setCanProceed2(e.target.value !== '')
                       }}
                     >
                       {console.log(seleccion)}
@@ -313,7 +315,10 @@ export default function HorizontalNonLinearStepper() {
             </Typography>
             <Box my={2}>
               <FormControl fullWidth>
-                <TextField id="agentes" type="number" label='Ingrese el numero de agentes disponibles' fullWidth variant="standard"   margin="dense"/> 
+                <TextField id="agentes" type="number" label='Ingrese el numero de agentes disponibles' fullWidth variant="standard"  onChange={(e) => {
+                        
+                        setCanProceed3(e.target.value !== '');
+                      }}  margin="dense"/> 
                 {/* setCanProceed3(event.target.value !== ''); */}
               </FormControl>
             </Box>
