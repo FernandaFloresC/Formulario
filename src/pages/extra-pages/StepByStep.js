@@ -238,7 +238,7 @@ export default function HorizontalNonLinearStepper() {
                     : 'Ninguna'}
                 </Typography>
               </Box>
-              <CardMedia height="850" width="600" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap: 3 }}>
+              <CardMedia sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap: 3 }}>
                 <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
                   <DateCalendar label="Selecciona una fecha" value={selectedDateIni} onChange={(date) => {
                       setSelectedDateIni(date);

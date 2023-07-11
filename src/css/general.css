@@ -1,4 +1,4 @@
-.calendario, .MuiDateCalendar-root , .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root, .MuiPickersDay-dayWithMargin, 	.MuiDateCalendar-viewTransitionContainer{
+.MuiDateCalendar-root , .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root, .MuiPickersDay-dayWithMargin, 	.MuiDateCalendar-viewTransitionContainer{
     border-width: 2rem;
     border-color: #FF5200;
     
@@ -32,9 +32,10 @@
     
 } */
 .MuiGrid-root {
-    width: 50%;
+    width: 60%;
     
 }
+
 
 .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected){
     border: transparent;
@@ -43,3 +44,18 @@
     color: black;
 }
 
+@media (max-width: 476px) {
+    .MuiGrid-root {
+
+        width: 100%;
+    
+    }
+  }
+  @media (max-width: 476px) {
+    .calendar {
+        display: flex;
+      flex-direction: column;
+      justify-content: center;
+      columns: 1;
+    }
+  }
