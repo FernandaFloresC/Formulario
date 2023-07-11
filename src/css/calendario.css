@@ -1,22 +1,20 @@
-.calendario, .MuiDateCalendar-root, .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root, .MuiPickersDay-dayWithMargin{
+.calendario, .MuiDateCalendar-root , .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root, .MuiPickersDay-dayWithMargin, 	.MuiDateCalendar-viewTransitionContainer{
     border-width: 2rem;
     border-color: #FF5200;
-
+    
+    color: #FF5200;
+}
+.MuiStepLabel-labelContainer, button:hover , .siguiente:hover {
+    color: #FF5200;
+} 
+/* .calendar{
+    width: 800px;
+    height: 700px;
+} */
+.MuiStepLabel-root, .MuiStepper-root{
     color: #FF5200;
 }
 
-/* .MuiButtonBase, .Mui-selected-true:hover, .isWeekday:hover {
-    color: #FF5200;
-    background-color: #FF5200;
-} */
-/* .MuiButtonBase-root:hover, .Mui-selected-true:hover {
-    color: #FF5200;
-} */
-
- /* .MuiPickersDay-root:hover .MuiPickersDay-dayWithMargin:hover .css-1p5wjjy-MuiButtonBase-root-MuiPickersDay-root:hover{
-    color: #FF5200;
-} */
-
-.MuiMenuItem-root, .MuiTypography-root{
+.MuiMenuItem-root{
     color: black;
 }

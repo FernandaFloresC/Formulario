@@ -1,10 +1,8 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Typography, Box, TextField, Button } from '@mui/material';
 import MainCard from 'components/MainCard';
 
 import '../../css/calendario.css';
@@ -24,6 +22,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
 import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import TimelapseIcon from '@mui/icons-material/Timelapse';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -36,9 +36,13 @@ import udla from '../../assets/images/UDLA.jpg';
 const steps = ['Presencial o Virtual', 'Fechas', 'Horarios', 'Agentes', 'Guardado'];
 
 export default function HorizontalNonLinearStepper() {
-  const [seleccion] = useState();
+  const [seleccion0] = useState();
   const [selectedCita, setSelectedCita] = useState(null);
 
+
+  const [seleccion, setSeleccion] = useState();
+  const [seleccionFin, setSeleccionFin] = useState();
+  const [seleccionInicio, setSeleccionInicio] = useState()
   //const [value, setValue] = useState(null);
   const today = dayjs();
   //const [visible, setVisible] = useState(false);
@@ -64,7 +68,7 @@ export default function HorizontalNonLinearStepper() {
   const [canProceed, setCanProceed] = useState(false);
   const [canProceed1, setCanProceed1] = useState(false);
   const [canProceed2, setCanProceed2] = useState(false);
-  const [canProceed3, setCanProceed3] = useState(false);
+  const [canProceed3] = useState(false);
 
   
   const totalSteps = () => {
@@ -133,14 +137,14 @@ export default function HorizontalNonLinearStepper() {
                   Agenda tu Cita Virtual o Presencial
                 </Typography>
                 <Typography variant="body1">Selección: {selectedCita ? selectedCita : 'Ninguna'}</Typography>
-                <CardMedia component="img" height="240" width="300" image={udla} alt="Imagen Cita Virtual o Presencial" />
+                <CardMedia component="img" height="380" image={udla} alt="Imagen Cita Virtual o Presencial" />
                 <Box my={1}>
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">Selecciona una opción</InputLabel>
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      value={seleccion}
+                      value={seleccion0}
                       label="Selecciona una Sede"
                       onChange={(event) => {
                         setSelectedCita(event.target.value);
@@ -164,8 +168,8 @@ export default function HorizontalNonLinearStepper() {
         );
       case 1:
         return (
-          <Grid item xs={12} sm={12} md={12} lg={12}>
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
+          <Grid item xs={12} sm={12} md={12} lg={12} className='calendar'>
+            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es" >
               <Typography gutterBottom variant="h5" component="div">
               Agenda tu Cita Virtual o Presencial
               </Typography>
@@ -173,7 +177,8 @@ export default function HorizontalNonLinearStepper() {
                 Selección: {selectedCita ? selectedCita : 'Ninguna'} - Fecha seleccionada:{' '}
                 {selectedDate ? selectedDate.format('DD/MM/YYYY') : 'Ninguna'}
               </Typography>
-              <DateCalendar
+              <CardMedia height="850" width="600">
+              <DateCalendar 
                 className="calendario rounded-warning"
                 onChange={(date) => {
                   setSelectedDate(date);
@@ -189,57 +194,135 @@ export default function HorizontalNonLinearStepper() {
                 shouldDisableAllKeyboardEvents
                 shouldDisableDateSelection={isWeekday}
               />
+              </CardMedia>
             </LocalizationProvider>
           </Grid>
         );
 
-      case 2:
-        return  <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Selecciona una Sede</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={seleccion}
-          label="Selecciona una Sede"
-          onChange={(event) => {
-            setSelectedCita(event.target.value);
-            setCanProceed2(event.target.value !== '');
-          }}
-        >
-          {console.log(selectedCita)}
-          <MenuItem value={''}>Selecciona una opción</MenuItem>
-          <MenuItem value={'Sede'}>
-            <HomeWorkOutlinedIcon sx={{ color: '#FF5200' }} /> Sede{' '}
-          </MenuItem>
-          <MenuItem value={'Cita'}>
-            <VideoChatOutlinedIcon sx={{ color: '#FF5200' }} /> Cita
-          </MenuItem>
-        </Select>
-      </FormControl>
+        case 2:
+          return <Grid item xs={12} sm={12} md={12} lg={12}>
+  
+            <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  <AccessTimeIcon sx={{ color: '#FF5200' }} /> Seleccione la franja horaria de las visitas
+                </Typography>
+                <Box my={1}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Desde:
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={seleccionInicio}
+                      label="inicio"
+                      onChange={(e) => {
+                        setSeleccionInicio(e.target.value);
+                        setCanProceed2(e.target.value !== '')
+                      }}
+                    >
+                      {console.log(seleccionInicio)}
+                      <MenuItem value={''}>Selecciona una opción</MenuItem>
+                      <MenuItem value={'0900'}>09 AM</MenuItem>
+                      <MenuItem value={'1000'}>10 AM</MenuItem>
+                      <MenuItem value={'1100'}>11 AM</MenuItem>
+                      <MenuItem value={'1200'}>12 PM</MenuItem>
+                      <MenuItem value={'1300'}>13 PM</MenuItem>
+                      <MenuItem value={'1400'}>14 PM</MenuItem>
+                      <MenuItem value={'1500'}>15 PM</MenuItem>
+                      <MenuItem value={'1600'}>16 PM</MenuItem>
+                      <MenuItem value={'1700'}>17 PM</MenuItem>
+                      <MenuItem value={'1800'}>18 PM</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+  
+                <Box my={1}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Hasta:
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={seleccionFin}
+                      label="final"
+                      onChange={(e) => {
+                        setSeleccionFin(e.target.value);
+                      }}
+                    >
+                      {console.log(seleccionFin)}
+                      <MenuItem value={''}>Selecciona una opción</MenuItem>
+                      <MenuItem value={'0900'}>09 AM</MenuItem>
+                      <MenuItem value={'1000'}>10 AM</MenuItem>
+                      <MenuItem value={'1100'}>11 AM</MenuItem>
+                      <MenuItem value={'1200'}>12 PM</MenuItem>
+                      <MenuItem value={'1300'}>13 PM</MenuItem>
+                      <MenuItem value={'1400'}>14 PM</MenuItem>
+                      <MenuItem value={'1500'}>15 PM</MenuItem>
+                      <MenuItem value={'1600'}>16 PM</MenuItem>
+                      <MenuItem value={'1700'}>17 PM</MenuItem>
+                      <MenuItem value={'1800'}>18 PM</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </CardContent>
+            </CardActionArea>
+  
+  
+            <CardActionArea>
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                
+                  <TimelapseIcon  sx={{ color: '#FF5200' }} /> Duración
+                </Typography>
+                <Box my={1}>
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Duración de las visitas
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      value={seleccion}
+                      label="Duracion"
+                      onChange={(e) => {
+                        setSeleccion(e.target.value);
+                      }}
+                    >
+                      {console.log(seleccion)}
+                      <MenuItem value={''}>Selecciona una opción</MenuItem>
+                      <MenuItem value={'15'}>15 min</MenuItem>
+                      <MenuItem value={'30'}>30 min</MenuItem>
+                      <MenuItem value={'60'}>60 min</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </CardContent>
+            </CardActionArea>
+          </Grid>
 
       case 3:
-        return  <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Selecciona una Sede</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={seleccion}
-          label="Selecciona una Sede"
-          onChange={(event) => {
-            setSelectedCita(event.target.value);
-            setCanProceed3(event.target.value !== '');
-          }}
-        >
-          {console.log(selectedCita)}
-          <MenuItem value={''}>Selecciona una opción</MenuItem>
-          <MenuItem value={'Sede'}>
-            <HomeWorkOutlinedIcon sx={{ color: '#FF5200' }} /> Sede{' '}
-          </MenuItem>
-          <MenuItem value={'Cita'}>
-            <VideoChatOutlinedIcon sx={{ color: '#FF5200' }} /> Cita
-          </MenuItem>
-        </Select>
-      </FormControl>
+        return <Grid item xs={12} sm={12} md={12} lg={12}>
+
+        <CardActionArea>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              <VideoChatOutlinedIcon sx={{ color: '#FF5200' }} /> Indique la cantidad de agentes disponibles
+            </Typography>
+            <Box my={2}>
+              <FormControl fullWidth>
+                <TextField id="agentes" type="number" label='Ingrese el numero de agentes disponibles' fullWidth variant="standard"   margin="dense"/> 
+                {/* setCanProceed3(event.target.value !== ''); */}
+              </FormControl>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Grid>
+
+
+      
       case 4:
         return <div>Guardado Content</div>;
       default:
@@ -252,7 +335,7 @@ export default function HorizontalNonLinearStepper() {
       <Stepper nonLinear activeStep={activeStep}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="inherit" onClick={handleStep(index)}>
+            <StepButton color='#FF5200' sx={{ color: '#FF5200'}} onClick={handleStep(index)}>
               {label}
             </StepButton>
           </Step>
@@ -268,21 +351,25 @@ export default function HorizontalNonLinearStepper() {
             </Box>
           </React.Fragment>
         ) : (
-          <React.Fragment>
+          <React.Fragment >
             <Typography sx={{ mt: 2, mb: 1, py: 1 }}>Paso {activeStep + 1}</Typography>
-            <MainCard>
+            <MainCard sx={{ display:'flex' , justifyContent:'center', alignItems:'center'}}>
               <img src={logo} alt="udla" width={100} />
             </MainCard>
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            <Box direction="row" justifyContent="space-between" alignItems="center"  >
+              <Box sx={{ display:'flex' , justifyContent:'center', alignItems:'center', pt: 2 }}>
               {renderStepContent(activeStep)}
-              <Box sx={{ flex: '1 1 auto' }} />
-              <Button color="inherit" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
+              </Box>
+              {/* <Box sx={{ flex: '1 1 auto' }} /> */}
+              <Box sx={{ display:'flex' , justifyContent:'center', alignItems:'center', pt: 2 }}>
+              <Button color="secondary" disabled={activeStep === 0} onClick={handleBack} sx={{ mr: 1 }}>
                 Atrás
               </Button>
-              <Box sx={{ flex: '1 1 auto' }} />
-              <Button onClick={handleNext} sx={{ mr: 1 }} disabled={!canProceed}>
+              {/* <Box sx={{ flex: '1 1 auto' }} /> */}
+              <Button onClick={handleNext} sx={{ mr: 1 , color:'#ff5200'}} className='siguiente' disabled={!canProceed}>
                 Siguiente
               </Button>
+              
               {activeStep !== steps.length &&
                 (completed[activeStep] ? (
                   <Typography variant="caption" sx={{ display: 'inline-block' }}>
@@ -291,6 +378,7 @@ export default function HorizontalNonLinearStepper() {
                 ) : (
                   <Button onClick={handleComplete}>{completedSteps() === totalSteps() - 1 ? 'Finish' : 'Complete Step'}</Button>
                 ))}
+                </Box>
             </Box>
           </React.Fragment>
         )}
