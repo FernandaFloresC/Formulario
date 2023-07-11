@@ -24,10 +24,12 @@ import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
 import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TimelapseIcon from '@mui/icons-material/Timelapse';
+import TodayIcon from '@mui/icons-material/Today';
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+const today = dayjs();
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import logo from '../../assets/images/logo.png';
@@ -38,30 +40,31 @@ const steps = ['Presencial o Virtual', 'Fechas', 'Horarios', 'Agentes', 'Guardad
 export default function HorizontalNonLinearStepper() {
   const [seleccion0] = useState();
   const [selectedCita, setSelectedCita] = useState(null);
-
-
   const [seleccion, setSeleccion] = useState();
+  const [seleccionInicio, setSeleccionInicio] = useState();
+  const [selectedDateIni, setSelectedDateIni] = useState(null);
+  const [selectedDateFin, setSelectedDateFin] = useState(null);
   const [seleccionFin, setSeleccionFin] = useState();
-  const [seleccionInicio, setSeleccionInicio] = useState()
+  const [agentesSeleccionados, setAgentes] = useState();
+  const [fechaInicioFormateada, setFechaInicioFormateada] = useState();
+  const [fechaFinalFormateada, setFechaFinalFormateada] = useState();
   //const [value, setValue] = useState(null);
-  const today = dayjs();
+  // const today = dayjs();
   //const [visible, setVisible] = useState(false);
 
-  const shouldDisableDate = (date) => {
-    const dayOfWeek = date.day();
+  // const shouldDisableDate = (date) => {
+  //   const dayOfWeek = date.day();
 
-    // Deshabilitar los días no laborables (sábado y domingo) y las fechas anteriores al día actual
-    return dayOfWeek === 0 || dayOfWeek === 6 || date.isBefore(today, 'day');
-  };
+  //   // Deshabilitar los días no laborables (sábado y domingo) y las fechas anteriores al día actual
+  //   return dayOfWeek === 0 || dayOfWeek === 6 || date.isBefore(today, 'day');
+  // };
 
-  const isWeekday = (date) => {
-    const dayOfWeek = date.day();
+  // const isWeekday = (date) => {
+  //   const dayOfWeek = date.day();
 
-    // Habilitar solo los días laborables (de lunes a viernes)
-    return dayOfWeek >= 1 && dayOfWeek <= 5;
-  };
-  const [selectedDate, setSelectedDate] = useState(null);
-
+  //   // Habilitar solo los días laborables (de lunes a viernes)
+  //   return dayOfWeek >= 1 && dayOfWeek <= 5;
+  // };
   const [activeStep, setActiveStep] = React.useState(0);
   const [completed, setCompleted] = React.useState({});
 
@@ -69,6 +72,17 @@ export default function HorizontalNonLinearStepper() {
   const [canProceed1, setCanProceed1] = useState(false);
   const [canProceed2, setCanProceed2] = useState(false);
   const [canProceed3, setCanProceed3] = useState(false);
+
+  const shouldDisableDate = (date) => {
+    const dayOfWeek = date.day();
+
+    // Deshabilitar los días no laborables (sábado y domingo)
+    return dayOfWeek === 0 || dayOfWeek === 6;
+  };
+
+  const Confirmar = async () => {
+    console.log("listo")
+  }
 
   
   const totalSteps = () => {
@@ -97,10 +111,32 @@ export default function HorizontalNonLinearStepper() {
       return;
     }
   
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
+    if (activeStep === 1) {
+      const startDate = selectedDateIni;
+      const endDate = selectedDateFin;
+  
+      if (startDate && endDate) {
+        // Validar que la fecha de inicio sea anterior a la fecha de fin
+        const isValidRange = dayjs(startDate).isBefore(endDate);
+  
+        if (!isValidRange) {
+          // La fecha de fin es inferior a la fecha de inicio, muestra un mensaje de error o realiza alguna acción
+          return;
+        }
+      }
+    }
+   // Formatear las fechas seleccionadas antes de mostrarlas en la consola
+   const formattedStartDate = selectedDateIni ? dayjs(selectedDateIni).format('DD/MM/YYYY') : 'Ninguna';
+   const formattedEndDate = selectedDateFin ? dayjs(selectedDateFin).format('DD/MM/YYYY') : 'Ninguna';
+  
+   setFechaInicioFormateada(formattedStartDate)
+   setFechaFinalFormateada(formattedEndDate)
+   
+ 
+   console.log('Fecha de inicio seleccionada:', formattedStartDate);
+   console.log('Fecha de fin seleccionada:', formattedEndDate);
+
+    const newActiveStep = isLastStep() && !allStepsCompleted() ? steps.findIndex((step, i) => !(i in completed)) : activeStep + 1;
     setActiveStep(newActiveStep);
   };
   
@@ -166,40 +202,60 @@ export default function HorizontalNonLinearStepper() {
             </CardActionArea>
           </Grid>
         );
-      case 1:
-        return (
-          <Grid item xs={12} sm={12} md={12} lg={12} className='calendar'>
-            <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es" >
-              <Typography gutterBottom variant="h5" component="div">
-              Agenda tu Cita Virtual o Presencial
-              </Typography>
-              <Typography variant="body1">
-                Selección: {selectedCita ? selectedCita : 'Ninguna'} - Fecha seleccionada:{' '}
-                {selectedDate ? selectedDate.format('DD/MM/YYYY') : 'Ninguna'}
-              </Typography>
-              <CardMedia height="850" width="600">
-              <DateCalendar 
-                className="calendario rounded-warning"
-                onChange={(date) => {
-                  setSelectedDate(date);
-                  setCanProceed1(date !== null);
-                }}
-                type="date"
-                id="date"
-                locale="es"
-                inputFormat="dd/MM/yyyy"
-                InputLabelProps={{ shrink: true }}
-                minDate={today}
-                shouldDisableDate={shouldDisableDate}
-                shouldDisableAllKeyboardEvents
-                shouldDisableDateSelection={isWeekday}
-              />
-              </CardMedia>
-            </LocalizationProvider>
-          </Grid>
-        );
+        case 1:
 
-        case 2:
+
+          return (
+            <Grid item xs={12} sm={12} md={12} lg={12} className="calendar" adapterLocale="es">
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Box sx={{ display: 'flex', flexDirection:'column'}}>
+                <Typography gutterBottom variant="h5" component="div">
+                  <TodayIcon sx={{ color: '#FF5200' }} />
+                  Agenda tu Cita
+                </Typography>
+                <Typography variant="body1">
+                  Selección: {selectedCita ? selectedCita : 'Ninguna'} - Fecha seleccionada:{' '}
+                  {selectedDateIni && selectedDateFin
+                    ? selectedDateIni.format('DD/MM/YYYY') + ' - ' + selectedDateFin.format('DD/MM/YYYY')
+                    : 'Ninguna'}
+                </Typography>
+                </Box>
+                <CardMedia height="850" width="600" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap:3 }}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='es'>
+                    <DateCalendar
+                      label="Selecciona una fecha"
+                      value={selectedDateIni}
+                      onChange={(date) => {
+                        setSelectedDateIni(date);
+                        setCanProceed1(date !== null);
+                      }}
+                      renderInput={(params) => <TextField {...params} />}
+                      minDate={today}
+                      shouldDisableDate={shouldDisableDate}
+                    />
+                    <DateCalendar
+                      label="Selecciona una fecha"
+                      value={selectedDateFin}
+                      onChange={(date) => {
+                        setSelectedDateFin(date);
+                        setCanProceed1(date !== null);
+                      }}
+                      renderInput={(params) => <TextField {...params} />}
+                      minDate={today}
+                      shouldDisableDate={shouldDisableDate}
+                      
+                    />
+                   
+  
+                  </LocalizationProvider>
+                </CardMedia>
+              </LocalizationProvider>
+            
+            </Grid>
+          );        
+        
+        
+          case 2:
           return <Grid item xs={12} sm={12} md={12} lg={12}>
   
             <CardActionArea>
@@ -209,11 +265,10 @@ export default function HorizontalNonLinearStepper() {
                 </Typography>
                 <Box my={1}>
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
+                    <InputLabel>
                       Desde:
                     </InputLabel>
                     <Select
-                      labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value={seleccionInicio}
                       label="inicio"
@@ -240,11 +295,10 @@ export default function HorizontalNonLinearStepper() {
   
                 <Box my={1}>
                   <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">
+                    <InputLabel>
                       Hasta:
                     </InputLabel>
                     <Select
-                      labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       value={seleccionFin}
                       label="final"
@@ -316,8 +370,8 @@ export default function HorizontalNonLinearStepper() {
             <Box my={2}>
               <FormControl fullWidth>
                 <TextField id="agentes" type="number" label='Ingrese el numero de agentes disponibles' fullWidth variant="standard"  onChange={(e) => {
-                        
                         setCanProceed3(e.target.value !== '');
+                        setAgentes(e.target.value)
                       }}  margin="dense"/> 
                 {/* setCanProceed3(event.target.value !== ''); */}
               </FormControl>
@@ -329,7 +383,31 @@ export default function HorizontalNonLinearStepper() {
 
       
       case 4:
-        return <div>Guardado Content</div>;
+        return <Grid item xs={12} sm={12} md={12} lg={10}>
+
+<MainCard
+      title={"Resumen"}>
+
+      <Box  >
+
+      <TextField id="tipo" value={selectedCita} label="Tipo" fullWidth variant="standard"  margin="dense" disabled/> 
+      <TextField id="Mes inicio" value={fechaInicioFormateada} label="Mes Inicial" fullWidth variant="standard" margin="dense" disabled/>
+      <TextField id="Mes Final" value={fechaFinalFormateada} label="Mes Final" fullWidth variant="standard" margin="dense" disabled/>
+      <TextField id="Horario inicio" value={seleccionInicio} label="Horario Inicio" fullWidth variant="standard" margin="dense" disabled/>
+      <TextField id="Horario Final" value={seleccionFin} label="Horario Final" fullWidth variant="standard" margin="dense" disabled/>
+      <TextField id="Duracion" value={seleccion} label="Duracion" fullWidth variant="standard"  margin="dense" disabled/>
+      <TextField id="Cantidad de Agentes" value={agentesSeleccionados} label="Cantidad de Agentes" fullWidth variant="standard"  margin="dense" disabled/>
+
+      <Button variant="contained" color="error" margin="dense" onClick={() => Confirmar()}> 
+        Confirmar
+      </Button>
+
+      </Box>
+
+    </MainCard>
+
+
+      </Grid>
       default:
         return null;
     }
