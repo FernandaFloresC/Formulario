@@ -81,7 +81,23 @@ export default function HorizontalNonLinearStepper() {
   };
 
   const Confirmar = async () => {
-    console.log("listo")
+    console.log(selectedCita)
+    console.log(fechaInicioFormateada)
+    console.log(fechaFinalFormateada)
+    console.log(seleccionInicio)
+    console.log(seleccionFin)
+    console.log(seleccion)
+    console.log(agentesSeleccionados)
+
+    // const result = await axios.post('https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_RegistroCivil_CRM/api/Ventas_CRM/CRM/DashTrafico/Intervalo/Acumulado/Reporte/Canales',
+    //         { dato: selectedCita, dato_1: fechaInicioFormateada, dato_2: fechaFinalFormateada, dato_3: seleccionInicio, dato_4: seleccionFin ,dato_5: seleccion ,dato_6: agentesSeleccionados  },
+    //         { headers: { "Authorization": `Bearer ${sesiones.stoken}` } })
+
+    //     if (result.status === 200) {
+    //         console.log(result)
+          
+    //     }
+
   }
 
   
