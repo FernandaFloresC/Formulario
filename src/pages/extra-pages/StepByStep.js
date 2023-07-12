@@ -114,7 +114,10 @@ export default function HorizontalNonLinearStepper() {
 
   }
 
-  
+  const handleEnd = () => {
+    window.location.href = '/Soluziona/Calendar/StepByStep';
+  };
+
   const totalSteps = () => {
     return steps.length;
   };
@@ -416,9 +419,11 @@ export default function HorizontalNonLinearStepper() {
                   <ArrowCircleLeftIcon /> Atrás
                 </Button>
                 {/* <Box sx={{ flex: '1 1 auto' }} /> */}
-                <Button onClick={handleNext} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}>
+
+                {activeStep === 4 ?(<Button onClick={handleEnd} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}> Terminar </Button>) : 
+                ( <Button onClick={handleNext} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}>
                   Siguiente <ArrowCircleRightIcon />
-                </Button>
+                </Button>)}
 
                 {activeStep !== steps.length &&
                   (completed[activeStep] ? (
