@@ -29,7 +29,8 @@ import TodayIcon from '@mui/icons-material/Today';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+//import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import CancelIcon from '@mui/icons-material/Cancel';
 // Calendario
 //import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 //import AdapterDayjs from '@mui/lab/AdapterDayjs';
@@ -421,7 +422,7 @@ export default function HorizontalNonLinearStepper() {
                 </Button>
                 {/* <Box sx={{ flex: '1 1 auto' }} /> */}
 
-                {activeStep === 4 ?(<Button onClick={handleEnd} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}> Terminar <CheckCircleIcon sx={{ color: '#FF5200' }} /></Button>) : 
+                {activeStep === 4 ?(<Button onClick={handleEnd} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}> Cancelar <CancelIcon sx={{ color: '#FF5200' }} /></Button>) : 
                 ( <Button onClick={handleNext} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}>
                   Siguiente <ArrowCircleRightIcon />
                 </Button>)}
