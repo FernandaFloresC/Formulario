@@ -6,7 +6,7 @@ import { APP_DEFAULT_PATH } from 'config';
 // material-ui
 import { useTheme } from '@mui/material/styles';
 import { useMediaQuery, Button, Grid, Stack, Typography } from '@mui/material';
-import udla from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.jpg'
 // assets
 // import error500 from 'assets/images/maintenance/Error500.png';
 
@@ -25,7 +25,7 @@ function Error500() {
           </Box>
         </Grid> */}
         <Grid item xs={12}>
-           <img src={udla} alt='imagen' width={400}/>
+           <img src={logo} alt='imagen' width={400}/>
           <Stack justifyContent="center" alignItems="center">
          
             <Typography align="center" variant={matchDownSM ? 'h2' : 'h1'}>

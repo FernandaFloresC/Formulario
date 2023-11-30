@@ -12,25 +12,25 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
-import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+//import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 
 import Calendario from 'components/select/Calendario';
-import campus from '../../assets/images/campus-udla.jpg';
+//import campus from '../../assets/images/campus-udla.jpg';
 import cita from '../../assets/images/cita-udla.jpeg';
 
 export default function Select_cita() {
   const [seleccion, setSeleccion] = useState();
-  const [visita, setVisita] = useState();
+ // const [visita, setVisita] = useState();
   const [mostrarCalendario, setMostrarCalendario] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [mostrarCalendario2, setMostrarCalendario2] = useState(false);
   const [selectedDate2, setSelectedDate2] = useState(null);
 
-  const SelectVisita = () => {
-    if(setVisita !== '0'){
-      setSeleccion('Selecciona un Campus')
-    }
-  };
+  // const SelectVisita = () => {
+  //   if(setVisita !== '0'){
+  //     setSeleccion('Selecciona un Campus')
+  //   }
+  // };
 
 
   return (
@@ -78,7 +78,7 @@ export default function Select_cita() {
 
         {console.log(seleccion)}
 
-        <Grid item xs={12} sm={12} md={12} lg={12}>
+        {/* <Grid item xs={12} sm={12} md={12} lg={12}>
           <CardActionArea>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
@@ -113,7 +113,7 @@ export default function Select_cita() {
               </Box>
             </CardContent>
           </CardActionArea>
-        </Grid>
+        </Grid> */}
       </Grid>
 
 

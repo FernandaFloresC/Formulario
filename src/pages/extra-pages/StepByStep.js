@@ -22,7 +22,7 @@ import {
 
 //Iconos
 import VideoChatOutlinedIcon from '@mui/icons-material/VideoChatOutlined';
-import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
+//import HomeWorkOutlinedIcon from '@mui/icons-material/HomeWorkOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import TimelapseIcon from '@mui/icons-material/Timelapse';
 import TodayIcon from '@mui/icons-material/Today';
@@ -43,8 +43,8 @@ import 'dayjs/locale/es';
 
 import MainCard from 'components/MainCard';
 import '../../css/general.css';
-import logo from '../../assets/images/logo.png';
-import udla from '../../assets/images/UDLA.jpg';
+import logo from '../../assets/images/logo.jpg';
+import udla from '../../assets/images/logo.jpg';
 
 const steps = ['Presencial o Virtual', 'Fechas', 'Horarios', 'Agentes', 'Guardado'];
 
@@ -214,9 +214,9 @@ export default function HorizontalNonLinearStepper() {
                         setCanProceed(event.target.value !== ''); }}>
                       {console.log(selectedCita)}
                       <MenuItem value={''}>Selecciona una opción</MenuItem>
-                      <MenuItem value={'Presencial'}>
+                      {/* <MenuItem value={'Presencial'}>
                         <HomeWorkOutlinedIcon sx={{ color: '#FF5200' }} /> Presencial{' '}
-                      </MenuItem>
+                      </MenuItem> */}
                       <MenuItem value={'Virtual'}>
                         <VideoChatOutlinedIcon sx={{ color: '#FF5200' }} /> Virtual
                       </MenuItem>

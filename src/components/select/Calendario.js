@@ -2,7 +2,7 @@ import Horario from './Horarios';
 import React, { useState } from 'react';
 
 // import '../../css/general.css'
-import udla from '../../assets/images/logo.png'
+import udla from '../../assets/images/logo.jpg'
 
 import Box from '@mui/material/Box';
 import MainCard from 'components/MainCard';

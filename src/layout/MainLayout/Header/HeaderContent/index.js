@@ -1,5 +1,5 @@
 //import { useMemo } from 'react';
-import logo from '../../../../assets/images/logo.png'
+import logo from '../../../../assets/images/logo.jpg'
 // material-ui
 import { Box,useMediaQuery } from '@mui/material';
 
