@@ -1,5 +1,5 @@
 //import { useMemo } from 'react';
-import logo from '../../../../assets/images/logo.jpg'
+// import logo from '../../../../assets/images/logo.jpg'
 // material-ui
 import { Box,useMediaQuery } from '@mui/material';
 
@@ -25,7 +25,7 @@ const HeaderContent = () => {
       {/* {!matchesXs && megaMenu} */}
       {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
       {/* {!matchesXs && <img src={logo} alt='logo' />} */}
-      <img src={logo} alt='logo' width={150} />
+      {/* <img src={logo} alt='logo' width={150} /> */}
       {/* <Typography variant='h6' >Universidad de Las Américas</Typography> */}
       {/* <Notification />
       <Message /> */}

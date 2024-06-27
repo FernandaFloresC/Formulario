@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo } from 'react';
+// import { useMemo } from 'react';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -7,7 +7,7 @@ import { AppBar, Toolbar, useMediaQuery } from '@mui/material';
 
 // project import
 import AppBarStyled from './AppBarStyled';
-import HeaderContent from './HeaderContent';
+// import HeaderContent from './HeaderContent';
 import useConfig from 'hooks/useConfig';
 //import IconButton from 'components/@extended/IconButton';
 import { LAYOUT_CONST } from 'config';
@@ -25,7 +25,7 @@ const Header = ({ open}) => {
   const isHorizontal = menuOrientation === LAYOUT_CONST.HORIZONTAL_LAYOUT && !downLG;
 
   // header content
-  const headerContent = useMemo(() => <HeaderContent />, []);
+  // const headerContent = useMemo(() => <HeaderContent />, []);
 
   //const iconBackColorOpen = theme.palette.mode === 'dark' ? 'grey.200' : 'grey.300';
   //const iconBackColor = theme.palette.mode === 'dark' ? 'background.default' : 'grey.100';
@@ -45,7 +45,7 @@ const Header = ({ open}) => {
           {!open ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </IconButton>
       ) : null} */}
-      {headerContent}
+      {/* {headerContent} */}
     </Toolbar>
   );
 

@@ -20,7 +20,7 @@ const HorizontalNonLinearStepper = Loadable(lazy(() => import('pages/extra-pages
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  path: '/Soluziona/Calendar/',
+  path: '/RegistroCivil/Agendamiento',
   children: [
     {
       path: '',

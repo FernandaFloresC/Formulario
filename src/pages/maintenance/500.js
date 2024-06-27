@@ -35,7 +35,7 @@ function Error500() {
             {/* <Typography color="textSecondary" variant="body2" align="center" sx={{ width: { xs: '73%', sm: '70%' }, mt: 1 }}>
               Server error 500. we fixing the problem. please try again at a later stage.
             </Typography> */}
-            <Button component={Link} to={APP_DEFAULT_PATH} variant="contained" sx={{backgroundColor:'#FF5200', color:'white', mt: 4 }}>
+            <Button component={Link} to={APP_DEFAULT_PATH} variant="contained" sx={{ color:'white', mt: 4 }}>
               Volver
             </Button>
           </Stack>

@@ -215,10 +215,10 @@ export default function HorizontalNonLinearStepper() {
                       {console.log(selectedCita)}
                       <MenuItem value={''}>Selecciona una opción</MenuItem>
                       {/* <MenuItem value={'Presencial'}>
-                        <HomeWorkOutlinedIcon sx={{ color: '#FF5200' }} /> Presencial{' '}
+                        <HomeWorkOutlinedIcon  /> Presencial{' '}
                       </MenuItem> */}
                       <MenuItem value={'Virtual'}>
-                        <VideoChatOutlinedIcon sx={{ color: '#FF5200' }} /> Virtual
+                        <VideoChatOutlinedIcon  /> Virtual
                       </MenuItem>
                     </Select>
                   </FormControl>
@@ -233,7 +233,7 @@ export default function HorizontalNonLinearStepper() {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Box sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography gutterBottom variant="h5" component="div">
-                  <TodayIcon sx={{ color: '#FF5200' }} />
+                  <TodayIcon  />
                   Agenda tu Cita
                 </Typography>
                 <Typography variant="body1">
@@ -262,7 +262,7 @@ export default function HorizontalNonLinearStepper() {
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  <AccessTimeIcon sx={{ color: '#FF5200' }} /> Seleccione la franja horaria de las visitas
+                  <AccessTimeIcon  /> Seleccione la franja horaria de las visitas
                 </Typography>
                 <Box my={1}>
                   <FormControl fullWidth>
@@ -315,7 +315,7 @@ export default function HorizontalNonLinearStepper() {
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  <TimelapseIcon sx={{ color: '#FF5200' }} /> Duración
+                  <TimelapseIcon  /> Duración
                 </Typography>
                 <Box my={1}>
                   <FormControl fullWidth>
@@ -343,7 +343,7 @@ export default function HorizontalNonLinearStepper() {
             <CardActionArea>
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  <PersonAddIcon sx={{ color: '#FF5200' }} /> Indique la cantidad de agentes disponibles
+                  <PersonAddIcon  /> Indique la cantidad de agentes disponibles
                 </Typography>
                 <Box my={2}>
                   <FormControl fullWidth width={600}>
@@ -394,7 +394,7 @@ export default function HorizontalNonLinearStepper() {
       <Stepper nonLinear activeStep={activeStep} alternativeLabel activeStepIcon={customStepIcon}>
         {steps.map((label, index) => (
           <Step key={label} completed={completed[index]}>
-            <StepButton color="#FF5200">{label}</StepButton>
+            <StepButton >{label}</StepButton>
           </Step>
         ))}
       </Stepper>
@@ -417,13 +417,13 @@ export default function HorizontalNonLinearStepper() {
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2 }}>{renderStepContent(activeStep)}</Box>
               {/* <Box sx={{ flex: '1 1 auto' }} /> */}
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2 }}>
-                <Button sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={activeStep === 0} onClick={handleBack}>
+                <Button sx={{ mr: 1 }} className="siguiente" disabled={activeStep === 0} onClick={handleBack}>
                   <ArrowCircleLeftIcon /> Atrás
                 </Button>
                 {/* <Box sx={{ flex: '1 1 auto' }} /> */}
 
-                {activeStep === 4 ?(<Button onClick={handleEnd} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}> Cancelar <CancelIcon sx={{ color: '#FF5200' }} /></Button>) : 
-                ( <Button onClick={handleNext} sx={{ mr: 1, color: '#ff5200' }} className="siguiente" disabled={!canProceed}>
+                {activeStep === 4 ?(<Button onClick={handleEnd} sx={{ mr: 1 }} className="siguiente" disabled={!canProceed}> Cancelar <CancelIcon  /></Button>) : 
+                ( <Button onClick={handleNext} sx={{ mr: 1 }} className="siguiente" disabled={!canProceed}>
                   Siguiente <ArrowCircleRightIcon />
                 </Button>)}
 
@@ -433,7 +433,7 @@ export default function HorizontalNonLinearStepper() {
                       Paso {activeStep + 1} listo
                     </Typography>
                   ) : (
-                    <Button sx={{ mr: 1, color: '#ff5200' }} className="siguiente" onClick={handleComplete}>
+                    <Button sx={{ mr: 1 }} className="siguiente" onClick={handleComplete}>
                       {completedSteps() === totalSteps() - 1 ? 'Finalizar' : 'Completar pasos'}
                     </Button>
                   ))}

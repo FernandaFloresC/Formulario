@@ -45,7 +45,7 @@ export default function Formulario({ sede, formattedDate, selectedHorario, showF
       <TextField id="comentario" fullWidth label="Comentario"  margin="dense"
       multiline rows={5} />
 
-      <Button variant="contained" color="error" margin="dense" onClick={() => Guardar()}> 
+      <Button variant="contained"  margin="dense" onClick={() => Guardar()}> 
         Programar Evento
       </Button>
 

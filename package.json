@@ -1,6 +1,6 @@
 {
   "name": "mantis-calendar",
-  "homepage": "/Soluziona/Calendar",
+  "homepage": "/RegistroCivil/Agendamiento",
   "version": "2.0.0",
   "private": true,
   "dependencies": {
