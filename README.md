@@ -1,2 +1,2 @@
-Sitio Web para agendar visitas a sedes en Universidad De Las Américas y para agendar citas virtuales. 
-Proyecto realizado con Javascript, HTML, CSS, React y Mantis.
+Sitio Web para agendar citas virtuales para RegistroCivil Videollamada. 
+Proyecto realizado con Javascript, HTML, CSS, React y Mantis, Bootstrap.
