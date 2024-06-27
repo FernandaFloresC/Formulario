@@ -1,7 +1,9 @@
-//import { useMemo } from 'react';
+// import { useMemo } from 'react';
 // import logo from '../../../../assets/images/logo.jpg'
 // material-ui
-import { Box,useMediaQuery } from '@mui/material';
+// import { 
+  // Box
+  // useMediaQuery } from '@mui/material';
 
 // project import
 //import Search from './Search';
@@ -14,7 +16,7 @@ import { Box,useMediaQuery } from '@mui/material';
 // ==============================|| HEADER - CONTENT ||============================== //
 
 const HeaderContent = () => {
-  const matchesXs = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  // const matchesXs = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   //const megaMenu = useMemo(() => <MegaMenuSection />, []);
@@ -23,8 +25,11 @@ const HeaderContent = () => {
     <>
       {/* {!matchesXs && <Search />} */}
       {/* {!matchesXs && megaMenu} */}
-      {matchesXs && <Box sx={{ width: '100%', ml: 1 }} />}
+      {/* {matchesXs && <Box sx={{ width: '50%', ml: 1 }} />} */}
       {/* {!matchesXs && <img src={logo} alt='logo' />} */}
+     
+                {/* <img src={logo} alt="udla" width={100} /> */}
+           
       {/* <img src={logo} alt='logo' width={150} /> */}
       {/* <Typography variant='h6' >Universidad de Las Américas</Typography> */}
       {/* <Notification />

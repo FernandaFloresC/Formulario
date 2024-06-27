@@ -8,7 +8,7 @@ import { useMediaQuery, Box, Container, Toolbar } from '@mui/material';
 
 // project import
 //import Drawer from './Drawer';
-import Header from './Header';
+// import Header from './Header';
 import Footer from './Footer';
 //import HorizontalBar from './Drawer/HorizontalBar';
 //import Breadcrumbs from 'components/@extended/Breadcrumbs';
@@ -35,10 +35,10 @@ const MainLayout = () => {
 
   // drawer toggler
   const [open, setOpen] = useState(!miniDrawer || drawerOpen);
-  const handleDrawerToggle = () => {
-    setOpen(!open);
-    dispatch(openDrawer({ drawerOpen: !open }));
-  };
+  // const handleDrawerToggle = () => {
+  //   setOpen(!open);
+  //   dispatch(openDrawer({ drawerOpen: !open }));
+  // };
 
   // set media wise responsive drawer
   useEffect(() => {
@@ -56,7 +56,7 @@ const MainLayout = () => {
 
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
-      <Header open={open} handleDrawerToggle={handleDrawerToggle} />
+      {/* <Header open={open} handleDrawerToggle={handleDrawerToggle} /> */}
       {/* {!isHorizontal ? <Drawer open={open} handleDrawerToggle={handleDrawerToggle} /> : <HorizontalBar />} */}
       <Box component="main" sx={{ width: 'calc(100% - 260px)', flexGrow: 1, p: { xs: 2, sm: 3 } }}>
         <Toolbar sx={{ mt: isHorizontal ? 8 : 'inherit' }} />

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Typography, Box, TextField, Button, Select, FormControl, CardMedia, CardContent, MenuItem, InputLabel, Grid, Card, InputAdornment, Stack, Stepper, Step, StepLabel } from '@mui/material';
+import { Typography, Box, TextField, Button, Select, FormControl, CardMedia, CardContent, MenuItem, InputLabel, Grid, Card, InputAdornment, Stepper, Step, StepLabel } from '@mui/material';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import CommentIcon from '@mui/icons-material/Comment';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
@@ -16,9 +16,7 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import MainCard from 'components/MainCard';
 import '../css/general.css';
-import morado from '../assets/images/morado.png';
 import verde from '../assets/images/verde.png';
-import logo from '../assets/images/logo.jpg';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 const steps = ['Solicitud', 'Agenda', 'Hora agendada'];
@@ -72,57 +70,28 @@ export default function Pasos() {
     setActiveStep(newActiveStep);
   };
 
-  const handleInicioTramite = () => {
+  
+  const handleIngresarSolicitud = () => {
     setCanProceed(true);
     handleNext();
   };
-  const handleIngresarSolicitud = () => {
+  const handleAgendar = () => {
     setCanProceed1(true);
     handleNext();
   };
-  const handleAgendar = () => {
-    setCanProceed2(true);
-    handleNext();
-  };
+
   const handleInputChange = (e) => {
     // Validaciones para el paso 1
     const nombre = e.target.value;
     const email = e.target.value;
 
     const puedeProceder = nombre !== '' && email !== '';
-    setCanProceed1(puedeProceder);
+    setCanProceed2(puedeProceder);
   };
 
   const renderStepContent = (step) => {
     switch (step) {
       case 0:
-        return (
-          <MainCard>
-            <Typography gutterBottom variant="h5" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap: 3 }}>
-              Ingresa tus datos para agendar una cita
-            </Typography>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '380px', marginTop:100  // Ajusta esta altura según sea necesario
-              }}>
-                <CardMedia component="img" height="380" image={morado} alt="Imagen Cita Virtual" style={{
-                  display: 'flex', justifyContent: 'center', alignItems: 'center',
-                  objectFit: 'cover', // Opciones: 'contain', 'cover', 'fill', 'none', 'scale-down'
-                  width: '50%', // Ajusta la anchura al 100% del contenedor
-                  height: 'auto' // Ajusta la altura automáticamente
-                }} /> </div>
-              <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap: 3 }}>
-                <Button variant="contained" margin="dense" onClick={handleInicioTramite}>
-                  Iniciar Trámite
-                </Button>
-              </Stack>
-            </Grid>
-          </MainCard>
-        );
-      case 1:
         return (
           <Grid container justifyContent="center" spacing={2}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -239,7 +208,7 @@ export default function Pasos() {
             </LocalizationProvider>
           </Grid>
         );
-      case 2:
+      case 1:
         return (
           <Grid item xs={12} sm={12} md={12} lg={12} className="calendar" adapterLocale="es">
             <Grid container spacing={2} justifyContent="center" alignItems="flex-start">
@@ -294,7 +263,7 @@ export default function Pasos() {
             </Grid>
           </Grid>
         );
-      case 3:
+      case 2:
         return (
           <MainCard>
             <Typography gutterBottom variant="h5" component="div"  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'underline',  marginBottom: 2 }}>
@@ -324,9 +293,7 @@ export default function Pasos() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <MainCard sx={{ display: 'flex', justifyContent: 'left', alignItems: 'center', border: '0', backgroundColor: '#E8E8E8' }}>
-        <img src={logo} alt="udla" width={100} />
-      </MainCard>
+     
       <Stepper activeStep={activeStep} sx={{ my: 4 }}>
         {steps.map((label, index) => (
           <Step key={label} completed={activeStep > index}>

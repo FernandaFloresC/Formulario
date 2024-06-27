@@ -1,6 +1,6 @@
 {
-  "name": "mantis-calendar",
-  "homepage": "/RegistroCivil/Agendamiento",
+  "name": "aporta_registrocivil_videollamada_formulario",
+  "homepage": "/Aporta/RegistroCivil/Videollamada/Formulario",
   "version": "2.0.0",
   "private": true,
   "dependencies": {

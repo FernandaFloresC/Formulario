@@ -6,7 +6,7 @@ import MainCard from 'components/MainCard';
 // material-ui
 import { Card } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import Pasos from './Pasos';
+import Pasos from '../Pasos';
 
 const SamplePage = () => {
 

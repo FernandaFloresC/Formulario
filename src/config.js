@@ -9,7 +9,7 @@ export const LAYOUT_CONST = {
   HORIZONTAL_LAYOUT: 'horizontal'
 };
 
-export const APP_DEFAULT_PATH = '/RegistroCivil/Agendamiento';
+export const APP_DEFAULT_PATH = '/Aporta/RegistroCivil/Videollamada/Formulario';
 export const HORIZONTAL_MAX_ITEM = 6;
 export const DRAWER_WIDTH = 260;
 
