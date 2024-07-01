@@ -15,7 +15,7 @@ import MainCard from 'components/MainCard';
 import '../css/general.css';
 import verde from '../assets/images/verde.png';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
-
+import axios from 'axios';
 import Check from '@mui/icons-material/Check';
 import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
 import PropTypes from 'prop-types';
@@ -39,17 +39,21 @@ const QontoStepIconRoot = styled('div')(({ theme }) => ({
   display: 'flex',
   height: 50,
   alignItems: 'center',
- 
+
   '& .QontoStepIcon-completedIcon': {
-    color: '#784af4',
+    // color: '#784af4',
     zIndex: 1,
-    fontSize: 22,
+    fontSize: 42,
+    backgroundColor: 'green',
+    width: 60,
+    height: 60,
+    borderRadius: '50%',
   },
   '& .QontoStepIcon-circle': {
     width: 60,
     height: 60,
     borderRadius: '50%',
-    backgroundColor: 'currentColor',
+    backgroundColor: 'orange',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -59,16 +63,16 @@ const QontoStepIconRoot = styled('div')(({ theme }) => ({
 }));
 
 function QontoStepIcon(props) {
-  const {  completed, className } = props;
+  const { completed, className } = props;
 
   const icons = {
-    0: 1,
-    1: 2
-    
+    0: 0,
+    1: 1
+
   };
 
   return (
-    <QontoStepIconRoot  className={className}>
+    <QontoStepIconRoot className={className}>
       {completed ? (
         <Check className="QontoStepIcon-completedIcon" />
       ) : (
@@ -88,6 +92,13 @@ QontoStepIcon.propTypes = {
 
 const steps = ['Solicitud', 'Agenda'];
 // 'Hora agendada'
+import { setUrl, setSesiones} from 'components/Common';
+
+
+const url = setUrl()
+// const direccion = setDireccion();
+console.log(url);
+const sesiones = setSesiones();
 
 export default function Pasos() {
 
@@ -119,19 +130,35 @@ export default function Pasos() {
 
   }, [selectedDate, horarioSeleccionado]);
 
-  const obtenerHorarios = () => {
-    const horarios = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
-    setData(horarios);
+  const obtenerHorarios = async () => {
+    // const horarios = ['09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+
+
+    const horarios = await axios.post('https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/HorarioDisponible',
+      { dato: horarioSeleccionado, dato_1: Tramite },
+      { headers: { "Authorization": `Bearer ${sesiones.stoken}` } })
+
+    if (horarios.status === 200) {
+      console.log(horarios)
+      setData();
+
+    }
+
   };
 
   const guardarHorario = (horario) => {
     setHorarioSeleccionado(horarioSeleccionado === horario ? null : horario);
     // console.log(horario)
 
-    // setFormData({
-    //   ...formData,
-    //   ['horario']: horarios
-    // });
+    // const result = await axios.post('https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/HorarioDisponible',
+    //   { dato: '', dato_1: '' },
+    //   { headers: { "Authorization": `Bearer ${sesiones.stoken}` } })
+
+    // if (result.status === 200) {
+    //   console.log(horarios)
+    //   setData();
+
+    // }
   };
 
   const [formData, setFormData] = useState({
@@ -185,7 +212,7 @@ export default function Pasos() {
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-        console.log(name,value)
+    console.log(name, value)
     console.log(e)
     if ((name === "Tramite") && value === '0') {
       alert("Debe seleccionar una Opción")
@@ -296,38 +323,41 @@ export default function Pasos() {
 
 
   async function handleAgendar() {
+    
     if (selectedDate && horarioSeleccionado) {
       const agendamiento = {
         fecha: selectedDate.format('YYYY-MM-DD'),
         hora: horarioSeleccionado
       };
-      // console.log('Agendamiento:', agendamiento);
+       console.log('Agendamiento:', agendamiento);
     }
-    setCanProceed1(true);
-    handleNext();
-    
-    // //valido
-    // try {
-    //   const id = []
+    // setCanProceed1(true);
+    // handleNext();
 
-    //   // id.push(formData)
-    //   console.log(id);
-    //   console.log(result)
-    //   // const result = await axios.post(
-    //   //   "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Formulario/api/Ventas/Call/GuardaGestion",
-    //   //   { dato: id }
-    //   // );
+    //valido
+    try {
+      const id = []
 
-    //   setCanProceed1(true);
-    //   if (result.status === 200) {
-    //     setDisabledFinalizar(true)
-    //   }
-    // } catch (error) {
-    //   // Manejo de errores
-    //   alert("Error al guardar la solicitud");
-    //   console.log("Error Con guardado");
+      // id.push(formData)
+      console.log(id);
+      console.log(result)
+      const result = await axios.post(
+        "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/GuardaGestion",
+        { dato: id, dato_1: detalle }
+      );
 
-    // }
+     
+      if (result.status === 200) {
+        setDisabledFinalizar(true)
+        setCanProceed1(true);
+        handleNext();
+      }
+    } catch (error) {
+      // Manejo de errores
+      alert("Error al guardar la solicitud");
+      console.log("Error Con guardado");
+
+    }
 
   }
 
@@ -348,7 +378,7 @@ export default function Pasos() {
     const newActiveStep = activeStep + 1;
     setActiveStep(newActiveStep);
   };
-  
+
 
 
   const renderStepContent = (step) => {
@@ -384,8 +414,8 @@ export default function Pasos() {
                           helperText={errors.Confirm_email} />
                       </Grid>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
-                      <FormControl fullWidth error={!!errors.Codigo}>
-                      <Box display="flex" alignItems="center">
+                        <FormControl fullWidth error={!!errors.Codigo}>
+                          <Box display="flex" alignItems="center">
                             <InputLabel>Cod.</InputLabel>
                             <Select
                               name="Codigo"
@@ -394,27 +424,27 @@ export default function Pasos() {
                               onChange={handleChange}
                               margin="dense"
                               style={{ marginRight: 0 }}
-                              InputProps={{style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }}
+                              InputProps={{ style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }}
                             >
                               <MenuItem value="0">+56</MenuItem>
                               <MenuItem value="1">+52</MenuItem>
                               <MenuItem value="2">Extranjero</MenuItem>
                             </Select>
-                        <TextField name="Telefono" label="Telefono" variant="outlined" margin="dense" fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"> <PhoneIcon /></InputAdornment>), style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Telefono}
-                          onChange={handleChange} error={!!errors.Telefono}
-                          helperText={errors.Telefono}
-                        />
-                         </Box>
+                            <TextField name="Telefono" label="Telefono" variant="outlined" margin="dense" fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"> <PhoneIcon /></InputAdornment>), style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Telefono}
+                              onChange={handleChange} error={!!errors.Telefono}
+                              helperText={errors.Telefono}
+                            />
+                          </Box>
                           {errors.Telefono && <p style={{ color: 'red' }}>{errors.Telefono}</p>}
                         </FormControl>
                       </Grid>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
                         <FormControl fullWidth>
                           <InputLabel sx={{ fontSize: 18 }}>Trámite requerido</InputLabel>
-                          <Select name="Tramite" 
+                          <Select name="Tramite"
                             // value={seleccionFin}
                             // onChange={(e) => handleChangeTramite(e)}
-                            sx={{ height: '50px', fontSize: 18 }} inputProps={{ endAdornment: (<InputAdornment position="end"> <FindInPageIcon />   </InputAdornment>), style: { fontSize: 18 } }} value={formData.Tramite}  onChange={(e) => handleChange(e)} error={!!errors.Tramite}
+                            sx={{ height: '50px', fontSize: 18 }} inputProps={{ endAdornment: (<InputAdornment position="end"> <FindInPageIcon />   </InputAdornment>), style: { fontSize: 18 } }} value={formData.Tramite} onChange={(e) => handleChange(e)} error={!!errors.Tramite}
                             helperText={errors.Tramite}>
                             <MenuItem value="0" style={{ fontSize: 18 }}>Selecciona una opción</MenuItem>
                             <MenuItem value="posesion" style={{ fontSize: 18 }}>Posesión Efectiva</MenuItem>
@@ -449,7 +479,7 @@ export default function Pasos() {
                 </Typography>
               </Grid>
               <Grid container spacing={2} justifyContent="center" alignItems="flex-start">
-                <Grid item xs={12} md={7}>
+                <Grid item xs={12} md={6}>
                   <Box
                     border={1}
                     p={2}
@@ -468,23 +498,26 @@ export default function Pasos() {
                         minDate={today}
                         shouldDisableDate={shouldDisableDate}
                         shouldDisableAllKeyboardEvents
+                       className="custom-date-calendar"
                       />
                     </LocalizationProvider>
                   </Box>
                 </Grid>
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} md={5}>
                   <Box border={1} p={2}>
                     <Typography variant="h5">Hora</Typography>
                     <Box display="flex" flexWrap="wrap" gap={1}>
-                      {data.map((horario, index) => (
+                      {selectedDate && data.map((horario, index) => (
                         <Button
                           key={index}
                           variant="contained"
                           value={horario}
                           onClick={() => guardarHorario(horario)}
+                          disabled={!selectedDate}
                           sx={{
                             flex: '1 1 100px',
                             bgcolor: horario === horarioSeleccionado ? '#1B5E20' : '#4CB683', // Verde claro si seleccionado, verde oscuro si no
+                            fontSize: 18,
                             color: '#FFFFFF',
                             '&:hover': {
                               bgcolor: horario === horarioSeleccionado ? '#1B5E20' : '#4CB683',
@@ -499,7 +532,7 @@ export default function Pasos() {
                 </Grid>
 
                 <Box display="flex" justifyContent="center" p={2}>
-                  <Button variant="contained" onClick={handleAgendar} disabled={disabledFinalizar }>
+                  <Button variant="contained" onClick={handleAgendar} disabled={disabledFinalizar}>
                     Agendar
                   </Button>
                 </Box>
@@ -511,7 +544,7 @@ export default function Pasos() {
         return (
           <MainCard>
             <Typography gutterBottom variant="h4" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'underline', marginBottom: 2 }}>
-              La cita de atención fue agendada para el: {console.log(formData.selectedDate)} a las {console.log(formData.horario)} hrs.
+              La cita de atención fue agendada para el: {console.log(formData.selectedDate)} a las {console.log(formData.horarios)} hrs.
             </Typography>
             <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
               <img src={verde} alt="Imagen Cita Virtual Agendada" width='80%' />

@@ -23,10 +23,10 @@ const Index = Loadable(lazy(() => import('../pages/Index')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  path: '/Aporta/RegistroCivil/Videollamada/Formulario',
+  path: '/Orkesta/Aporta/VideollamadaRegistroCivil/Call',
   children: [
     {
-      path: '/Aporta/RegistroCivil/Videollamada/Formulario',
+      path: '/Orkesta/Aporta/VideollamadaRegistroCivil/Call',
       element: (
         <MainLayout />
       

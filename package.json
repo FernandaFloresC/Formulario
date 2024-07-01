@@ -1,6 +1,6 @@
 {
   "name": "aporta_registrocivil_videollamada_formulario",
-  "homepage": "/Aporta/RegistroCivil/Videollamada/Formulario",
+  "homepage": "/Orkesta/Aporta/VideollamadaRegistroCivil/Call",
   "version": "2.0.0",
   "private": true,
   "dependencies": {

@@ -3,6 +3,9 @@
     width: 100%;
 }
 
+.custom-date-calendar .MuiPickersDay-root {
+  font-size: 18px;
+}
 /* & .QontoStepIcon-circle{
   color:brown;
   width: 80;
