@@ -1,15 +1,16 @@
-
-
-
 .MuiGrid-root {
-    margin-top: 100px;
+    /* margin-top: 100px; */
     width: 100%;
-    
 }
 
-
+/* & .QontoStepIcon-circle{
+  color:brown;
+  width: 80;
+  height: 80;
+} */
 .css-1thy9fz-MuiButtonBase-root-MuiPickersDay-root:not(.Mui-selected){
     border: transparent;
+    
 }
 .MuiMenuItem-root{
     color: black;

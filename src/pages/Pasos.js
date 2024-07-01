@@ -1,15 +1,12 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
-import { Typography, Box, TextField, Button, Select, FormControl, CardMedia, CardContent, MenuItem, InputLabel, Grid, Card, InputAdornment, Stepper, Step, StepLabel } from '@mui/material';
+import { Typography, Box, TextField, Button, Select, FormControl, CardContent, MenuItem, InputLabel, Grid, Card, InputAdornment, Stepper, Step, StepLabel } from '@mui/material';
 import FindInPageIcon from '@mui/icons-material/FindInPage';
 import CommentIcon from '@mui/icons-material/Comment';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-// import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-// import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-// import CancelIcon from '@mui/icons-material/Cancel';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
@@ -19,23 +16,108 @@ import '../css/general.css';
 import verde from '../assets/images/verde.png';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
-const steps = ['Solicitud', 'Agenda', 'Hora agendada'];
+import Check from '@mui/icons-material/Check';
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+
+const QontoConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${stepConnectorClasses.alternativeLabel}`]: {
+    top: 25,
+    left: 'calc(-50% + 50px)',
+    right: 'calc(50% + 50px)',
+  },
+  [`& .${stepConnectorClasses.line}`]: {
+    borderColor: theme.palette.mode === 'dark' ? theme.palette.grey[800] : '#eaeaf0',
+    borderTopWidth: 3,
+    borderRadius: 1,
+  },
+}));
+
+const QontoStepIconRoot = styled('div')(({ theme }) => ({
+  color: theme.palette.mode === 'dark' ? theme.palette.grey[700] : '#eaeaf0',
+  display: 'flex',
+  height: 50,
+  alignItems: 'center',
+ 
+  '& .QontoStepIcon-completedIcon': {
+    color: '#784af4',
+    zIndex: 1,
+    fontSize: 22,
+  },
+  '& .QontoStepIcon-circle': {
+    width: 60,
+    height: 60,
+    borderRadius: '50%',
+    backgroundColor: 'currentColor',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: '1.2rem',
+    fontWeight: 'bold',
+  },
+}));
+
+function QontoStepIcon(props) {
+  const {  completed, className } = props;
+
+  const icons = {
+    0: 1,
+    1: 2
+    
+  };
+
+  return (
+    <QontoStepIconRoot  className={className}>
+      {completed ? (
+        <Check className="QontoStepIcon-completedIcon" />
+      ) : (
+        <div className="QontoStepIcon-circle">{icons[props.icon]}</div>
+      )}
+    </QontoStepIconRoot>
+  );
+}
+
+QontoStepIcon.propTypes = {
+  // active: PropTypes.bool,
+  className: PropTypes.string,
+  completed: PropTypes.bool,
+  icon: PropTypes.node,
+};
+
+
+const steps = ['Solicitud', 'Agenda'];
+// 'Hora agendada'
 
 export default function Pasos() {
+
+  const [disabledFinalizar, setDisabledFinalizar] = useState(true);
+  const [errors, setErrors] = useState({});
   const today = dayjs();
   const [data, setData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
-
   const shouldDisableDate = (date) => {
     const dayOfWeek = date.day();
     // Deshabilitar los días no laborables (sábado y domingo) y las fechas anteriores al día actual
     return dayOfWeek === 0 || dayOfWeek === 6 || date.isBefore(today, 'day');
   };
-
+  // const formattedStartDate = selectedDate ? dayjs(selectedDate).format('DD/MM/YYYY') : 'Ninguna';
+  // setFechaInicioFormateada(formattedStartDate);
+  // console.log('Fecha de inicio seleccionada:', formattedStartDate);
   useEffect(() => {
     obtenerHorarios();
   }, []);
+  useEffect(() => {
+    if (selectedDate && horarioSeleccionado) {
+      setDisabledFinalizar(false);
+    } else {
+      setDisabledFinalizar(true);
+    }
+    console.log(selectedDate)
+    console.log(horarioSeleccionado)
+
+  }, [selectedDate, horarioSeleccionado]);
 
   const obtenerHorarios = () => {
     const horarios = ['09:00', '09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
@@ -44,13 +126,210 @@ export default function Pasos() {
 
   const guardarHorario = (horario) => {
     setHorarioSeleccionado(horarioSeleccionado === horario ? null : horario);
+    // console.log(horario)
+
+    // setFormData({
+    //   ...formData,
+    //   ['horario']: horarios
+    // });
   };
-  const [seleccionFin, setSeleccionFin] = useState('');
+
+  const [formData, setFormData] = useState({
+    // Idllamada: obtenerGuiBase(),
+    // Fechasolicitud: obtenerFecha(),
+    // Horasolicitud: obtenerHora(),
+    Nombre: '',
+    Rut: '',
+    Email: '',
+    Confirm_email: '',
+    Codigo: '0',
+    Telefono: '',
+    Tramite: '0',
+    Obs: '',
+
+    // selectedDate: selectedDate,
+    // horario: horario
+
+  });
+
+  const formatAndValidateRut = (rut) => {
+    // Eliminar caracteres no válidos y limitar la longitud a 9 caracteres
+    const cleanedRut = rut.replace(/[^\dkK]/g, '').slice(0, 9);
+
+    // Verificar si hay suficientes caracteres para agregar el guión
+    let formattedRut = cleanedRut;
+    if (cleanedRut.length > 1) {
+      formattedRut = cleanedRut.slice(0, cleanedRut.length - 1) + '-' + cleanedRut.slice(-1);
+    }
+
+    // Verificar que el formato solo contenga números y la letra K (mayúscula o minúscula)
+    if (!/^[0-9]+-[0-9kK]{1}$/.test(formattedRut)) {
+      return { formattedRut, validationResult: "RUT inválido, el formato es 12345678-9" };
+    }
+
+    const [rutNumber, dv] = formattedRut.split("-");
+    let total = 0;
+    let factor = 2;
+    for (let i = rutNumber.length - 1; i >= 0; i--) {
+      total += factor * parseInt(rutNumber[i], 10);
+      factor = factor === 7 ? 2 : factor + 1;
+    }
+
+    const dvCalc = 11 - (total % 11);
+    const dvFinal = dvCalc === 11 ? "0" : dvCalc === 10 ? "k" : dvCalc.toString();
+    const validationResult = dvFinal.toLowerCase() === dv.toLowerCase() ? "" : "RUT inválido";
+
+    return { formattedRut, validationResult };
+  };
+
+
+  const handleChange = (e) => {
+    const { value, name } = e.target;
+        console.log(name,value)
+    console.log(e)
+    if ((name === "Tramite") && value === '0') {
+      alert("Debe seleccionar una Opción")
+      return
+    }
+
+    if (name === "Rut") {
+      const { formattedRut, validationResult } = formatAndValidateRut(value);
+      setFormData({
+        ...formData,
+        [name]: formattedRut
+      });
+      setErrors({
+        ...errors,
+        [name]: validationResult
+      });
+    } else if (name === "Nombre") {
+      const textValue = value.replace(/[^a-zA-Z\s]/g, '');
+      setFormData({
+        ...formData,
+        [name]: textValue
+      });
+      setErrors({
+        ...errors,
+        [name]: textValue.length > 0 ? "" : `${name} solo puede contener letras`
+      });
+    } else if (name === "Email") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+      setErrors({
+        ...errors,
+        [name]: emailRegex.test(value) ? "" : "Email inválido, el formato es x@x.x"
+      });
+    }
+    else if (name === "Confirm_email") {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+      setErrors({
+        ...errors,
+        [name]: formData.Email === value ? "" : "Email de Confirmacion no coincide"
+      });
+      // console.log(Confirm_email)
+    } else if (name === "Telefono") {
+      // Remueve cualquier caracter que no sea un número
+      const cleanedValue = value.replace(/[^0-9]/g, "");
+
+      // Limita la longitud a 9 dígitos
+      if (formData.Codigo === '2') {
+        const finalValue = cleanedValue
+        setFormData({
+          ...formData,
+          [name]: finalValue
+        });
+      }
+      if (formData.Codigo !== '2') {
+        const finalValue = cleanedValue.slice(0, 10);
+        setFormData({
+          ...formData,
+          [name]: finalValue
+        });
+      }
+      setErrors({
+        ...errors,
+        [name]: formData.Telefono.length >= 0 ? "" : "Solo se puede ingresar números"
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
+  };
+
+
   const [activeStep, setActiveStep] = React.useState(0);
 
   const [canProceed, setCanProceed] = useState(false);
   const [canProceed1, setCanProceed1] = useState(false);
-  const [canProceed2, setCanProceed2] = useState(false); // Define canProceed1 state
+  // const [canProceed2, setCanProceed2] = useState(false); // Define canProceed1 state
+
+  const handleIngresarSolicitud = () => {
+    const validationErrors = {};
+    if (!formData.Nombre) validationErrors.Nombre = "Nombre es requerido";
+    if (!formData.Rut || errors.Rut) validationErrors.Rut = "RUT es requerido y debe ser válido";
+    if (!formData.Email || errors.Email) validationErrors.Email = "Email es requerido y debe ser válido";
+    if (!formData.Confirm_email || errors.Confirm_email) validationErrors.Confirm_email = "Email de Confirmación no coincide";
+    if (!formData.Telefono || errors.Telefono || formData.Telefono.length < 8) validationErrors.Telefono = "Teléfono es requerido y debe ser válido";
+    if (formData.Tramite === '0') validationErrors.Tramite = "Debe seleccionar un Trámite, es obligatorio";
+
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      setCanProceed(true);
+      handleNext();
+    }
+    else {
+      console.log("Errores en el formulario:", validationErrors);
+    }
+  };
+
+
+
+
+  async function handleAgendar() {
+    if (selectedDate && horarioSeleccionado) {
+      const agendamiento = {
+        fecha: selectedDate.format('YYYY-MM-DD'),
+        hora: horarioSeleccionado
+      };
+      // console.log('Agendamiento:', agendamiento);
+    }
+    setCanProceed1(true);
+    handleNext();
+    
+    // //valido
+    // try {
+    //   const id = []
+
+    //   // id.push(formData)
+    //   console.log(id);
+    //   console.log(result)
+    //   // const result = await axios.post(
+    //   //   "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Formulario/api/Ventas/Call/GuardaGestion",
+    //   //   { dato: id }
+    //   // );
+
+    //   setCanProceed1(true);
+    //   if (result.status === 200) {
+    //     setDisabledFinalizar(true)
+    //   }
+    // } catch (error) {
+    //   // Manejo de errores
+    //   alert("Error al guardar la solicitud");
+    //   console.log("Error Con guardado");
+
+    // }
+
+  }
 
 
   const handleNext = () => {
@@ -62,32 +341,15 @@ export default function Pasos() {
       return; // No avanza al paso 2 si canProceed1 es falso
     }
 
-    if (activeStep === 2 && !canProceed2) {
-      return; // No avanza al paso 3 si canProceed2 es falso
-    }
+    // if (activeStep === 2 && !canProceed2) {
+    //   return; // No avanza al paso 3 si canProceed2 es falso
+    // }
 
     const newActiveStep = activeStep + 1;
     setActiveStep(newActiveStep);
   };
-
   
-  const handleIngresarSolicitud = () => {
-    setCanProceed(true);
-    handleNext();
-  };
-  const handleAgendar = () => {
-    setCanProceed1(true);
-    handleNext();
-  };
 
-  const handleInputChange = (e) => {
-    // Validaciones para el paso 1
-    const nombre = e.target.value;
-    const email = e.target.value;
-
-    const puedeProceder = nombre !== '' && email !== '';
-    setCanProceed2(puedeProceder);
-  };
 
   const renderStepContent = (step) => {
     switch (step) {
@@ -101,100 +363,68 @@ export default function Pasos() {
                     <Typography gutterBottom variant="h5" component="div">
                       Ingresa tus datos
                     </Typography>
-                    <Grid container spacing={2} direction="column">
+                    <Grid container spacing={2} direction="column" sx={{ fontSize: 18 }}>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
-                        <TextField id="nombre" label="Nombre" variant="outlined" margin="dense" fullWidth InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <PersonIcon />
-                            </InputAdornment>
-                          ),
-                        }} />
+                        <TextField name="Nombre" label="Nombre" variant="outlined" margin="dense" fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"><PersonIcon /></InputAdornment>), style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Nombre}
+                          onChange={(e) => handleChange(e)} error={!!errors.Nombre}
+                          helperText={errors.Nombre} />
                       </Grid>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
-                        <TextField id="rut" label="Rut" variant="outlined" margin="dense" fullWidth InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <PersonPinIcon />
-                            </InputAdornment>
-                          ),
-                        }} />
+                        <TextField name="Rut" label="Rut" variant="outlined" margin="dense" fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"> <PersonPinIcon /> </InputAdornment>), style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Rut}
+                          onChange={handleChange} error={!!errors.Rut} helperText={errors.Rut} />
                       </Grid>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
-                        <TextField
-                          id="email"
-                          label="Email"
-                          variant="outlined"
-                          margin="dense"
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <EmailIcon />
-                              </InputAdornment>
-                            ),
-                          }}
+                        <TextField name="Email" label="Email" variant="outlined" margin="dense" fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"><EmailIcon /> </InputAdornment>), style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Email}
+                          onChange={handleChange} error={!!errors.Email}
+                          helperText={errors.Email} />
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={6} lg={6}>
+                        <TextField name="Confirm_email" label="Confirmación email" variant="outlined" margin="dense" fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"> <EmailIcon /> </InputAdornment>), style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Confirm_email}
+                          onChange={handleChange} error={!!errors.Confirm_email}
+                          helperText={errors.Confirm_email} />
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={6} lg={6}>
+                      <FormControl fullWidth error={!!errors.Codigo}>
+                      <Box display="flex" alignItems="center">
+                            <InputLabel>Cod.</InputLabel>
+                            <Select
+                              name="Codigo"
+                              label="Cod."
+                              value={formData.Codigo}
+                              onChange={handleChange}
+                              margin="dense"
+                              style={{ marginRight: 0 }}
+                              InputProps={{style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }}
+                            >
+                              <MenuItem value="0">+56</MenuItem>
+                              <MenuItem value="1">+52</MenuItem>
+                              <MenuItem value="2">Extranjero</MenuItem>
+                            </Select>
+                        <TextField name="Telefono" label="Telefono" variant="outlined" margin="dense" fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"> <PhoneIcon /></InputAdornment>), style: { fontSize: 18, height: '50px' } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Telefono}
+                          onChange={handleChange} error={!!errors.Telefono}
+                          helperText={errors.Telefono}
                         />
-                      </Grid>
-                      <Grid item xs={12} sm={12} md={6} lg={6}>
-                        <TextField id="confirm_email" label="Confirmación email" variant="outlined" margin="dense" fullWidth InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <EmailIcon />
-                            </InputAdornment>
-                          ),
-                        }} />
-                      </Grid>
-                      <Grid item xs={12} sm={12} md={6} lg={6}>
-                        <TextField id="telefono" label="Telefono" variant="outlined" margin="dense" fullWidth InputProps={{
-                          endAdornment: (
-                            <InputAdornment position="end">
-                              <PhoneIcon />
-                            </InputAdornment>
-                          ),
-                        }} />
+                         </Box>
+                          {errors.Telefono && <p style={{ color: 'red' }}>{errors.Telefono}</p>}
+                        </FormControl>
                       </Grid>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
                         <FormControl fullWidth>
-                          <InputLabel>Trámite requerido</InputLabel>
-                          <Select
-                            id="demo-simple-select" InputProps={{
-                              endAdornment: (
-                                <InputAdornment position="end">
-                                  <FindInPageIcon />
-                                </InputAdornment>
-                              ),
-                            }}
-                            value={seleccionFin}
-                            label="final"
-                            onChange={(e) => {
-                              setSeleccionFin(e.target.value);
-                              // setCanProceed2(e.target.value !== '');
-                            }}
-                          >
-                            <MenuItem value="">Selecciona una opción</MenuItem>
-                            <MenuItem value="posesion">Posesión Efectiva</MenuItem>
-                            <MenuItem value="matrimonio">Matrimonio</MenuItem>
+                          <InputLabel sx={{ fontSize: 18 }}>Trámite requerido</InputLabel>
+                          <Select name="Tramite" 
+                            // value={seleccionFin}
+                            // onChange={(e) => handleChangeTramite(e)}
+                            sx={{ height: '50px', fontSize: 18 }} inputProps={{ endAdornment: (<InputAdornment position="end"> <FindInPageIcon />   </InputAdornment>), style: { fontSize: 18 } }} value={formData.Tramite}  onChange={(e) => handleChange(e)} error={!!errors.Tramite}
+                            helperText={errors.Tramite}>
+                            <MenuItem value="0" style={{ fontSize: 18 }}>Selecciona una opción</MenuItem>
+                            <MenuItem value="posesion" style={{ fontSize: 18 }}>Posesión Efectiva</MenuItem>
+                            <MenuItem value="matrimonio" style={{ fontSize: 18 }}>Matrimonio</MenuItem>
                           </Select>
                         </FormControl>
                       </Grid>
                       <Grid item xs={12} sm={12} md={6} lg={6}>
-                        <TextField
-                          id="observacion"
-                          label="Observación"
-                          margin="dense"
-                          multiline
-                          onChange={handleInputChange}
-                          // rows={5}
-                          fullWidth
-                          InputProps={{
-                            endAdornment: (
-                              <InputAdornment position="end">
-                                <CommentIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                        />
+                        <TextField name="Obs" label="Observación" margin="dense" multiline
+                          fullWidth InputProps={{ endAdornment: (<InputAdornment position="end"><CommentIcon /> </InputAdornment>), style: { fontSize: 18 } }} InputLabelProps={{ style: { fontSize: 18 } }} sx={{ height: '50px' }} value={formData.Obs} onChange={handleChange} />
                       </Grid>
                     </Grid>
                   </CardContent>
@@ -207,82 +437,84 @@ export default function Pasos() {
               </Grid>
             </LocalizationProvider>
           </Grid>
+
         );
       case 1:
         return (
-          <Grid item xs={12} sm={12} md={12} lg={12} className="calendar" adapterLocale="es">
-            <Grid container spacing={2} justifyContent="center" alignItems="flex-start">
-              <Typography gutterBottom variant="h4" component="div" sx={{ marginTop: 4 }}>
-                Ingrese sus datos y lo contactaremos a través de una videoconferencia.
-              </Typography>
-              <Grid item xs={12} md={7}>
-                <Box border={1} m={1} p={2}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
-                    <Typography variant="h6">Fecha</Typography>
-                    <DateCalendar
-                      onChange={(newValue) => { setSelectedDate(newValue); }}
-                      value={selectedDate}
-                      minDate={today}
-                      shouldDisableDate={shouldDisableDate}
-                      shouldDisableAllKeyboardEvents
-                    />
-                  </LocalizationProvider>
-                </Box>
+          <MainCard>
+            <Grid item xs={12} sm={12} md={12} lg={12} className="calendar" adapterLocale="es">
+              <Grid sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 3, marginTop: 4, textAlign: 'center' }}>
+                <Typography variant="h4" >
+                  Ingrese sus datos y lo contactaremos a través de una videoconferencia.
+                </Typography>
               </Grid>
-              <Grid item xs={12} md={4}>
-                <Box border={1} m={1} p={2}>
-                  <Typography variant="h6">Hora</Typography>
-                  <Box display="flex" flexWrap="wrap" gap={1}>
-                    {data.map((horario, index) => (
-                      <Button
-                        key={index}
-                        variant="contained"
-                        value={horario}
-                        onClick={() => guardarHorario(horario)}
-                        sx={{
-                          flex: '1 1 100px',
-                          bgcolor: horario === horarioSeleccionado ? '#1B5E20' : '#4CB683', // Verde claro si seleccionado, verde oscuro si no
-                          color: '#FFFFFF',
-                          '&:hover': {
-                            bgcolor: horario === horarioSeleccionado ? '#1B5E20' : '#4CB683',
-                          },
-                        }}
-                      >
-                        {horario}
-                      </Button>
-                    ))}
+              <Grid container spacing={2} justifyContent="center" alignItems="flex-start">
+                <Grid item xs={12} md={7}>
+                  <Box
+                    border={1}
+                    p={2}
+                    sx={{
+                      maxWidth: '100%',
+                      minWidth: 0,
+                      minHeight: 0,
+                      overflow: 'auto'
+                    }}
+                  >
+                    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
+                      <Typography variant="h5">Fecha</Typography>
+                      <DateCalendar
+                        onChange={(newValue) => { setSelectedDate(newValue); }}
+                        value={selectedDate}
+                        minDate={today}
+                        shouldDisableDate={shouldDisableDate}
+                        shouldDisableAllKeyboardEvents
+                      />
+                    </LocalizationProvider>
                   </Box>
+                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Box border={1} p={2}>
+                    <Typography variant="h5">Hora</Typography>
+                    <Box display="flex" flexWrap="wrap" gap={1}>
+                      {data.map((horario, index) => (
+                        <Button
+                          key={index}
+                          variant="contained"
+                          value={horario}
+                          onClick={() => guardarHorario(horario)}
+                          sx={{
+                            flex: '1 1 100px',
+                            bgcolor: horario === horarioSeleccionado ? '#1B5E20' : '#4CB683', // Verde claro si seleccionado, verde oscuro si no
+                            color: '#FFFFFF',
+                            '&:hover': {
+                              bgcolor: horario === horarioSeleccionado ? '#1B5E20' : '#4CB683',
+                            },
+                          }}
+                        >
+                          {horario}
+                        </Button>
+                      ))}
+                    </Box>
+                  </Box>
+                </Grid>
+
+                <Box display="flex" justifyContent="center" p={2}>
+                  <Button variant="contained" onClick={handleAgendar} disabled={disabledFinalizar }>
+                    Agendar
+                  </Button>
                 </Box>
               </Grid>
-
-              <Box display="flex" justifyContent="center" p={2}>
-                <Button variant="contained" onClick={() => handleAgendar()}>
-                  Agendar
-                </Button>
-              </Box>
             </Grid>
-          </Grid>
+          </MainCard>
         );
       case 2:
         return (
           <MainCard>
-            <Typography gutterBottom variant="h5" component="div"  sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'underline',  marginBottom: 2 }}>
-            La cita de atención fue agendada para el: 10/07/2024 a las 10:30 hrs.
+            <Typography gutterBottom variant="h4" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'underline', marginBottom: 2 }}>
+              La cita de atención fue agendada para el: {console.log(formData.selectedDate)} a las {console.log(formData.horario)} hrs.
             </Typography>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '380px', marginTop:100  // Ajusta esta altura según sea necesario
-              }}>
-                <CardMedia component="img" height="380" image={verde} alt="Imagen Cita Virtual" style={{
-                  display: 'flex', justifyContent: 'center', alignItems: 'center',
-                  objectFit: 'cover', // Opciones: 'contain', 'cover', 'fill', 'none', 'scale-down'
-                  width: '50%', // Ajusta la anchura al 100% del contenedor
-                  height: 'auto' // Ajusta la altura automáticamente
-                }} /> </div>
-             
+            <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
+              <img src={verde} alt="Imagen Cita Virtual Agendada" width='80%' />
             </Grid>
           </MainCard>
         );
@@ -293,14 +525,23 @@ export default function Pasos() {
 
   return (
     <Box sx={{ width: '100%' }}>
-     
-      <Stepper activeStep={activeStep} sx={{ my: 4 }}>
+
+      {/* <Stepper activeStep={activeStep} sx={{ my: 4, ml:'330px', width: '50%' }}>
         {steps.map((label, index) => (
-          <Step key={label} completed={activeStep > index}>
+          <Step key={label} className='circle'  completed={activeStep > index} >
             <StepLabel>{label}</StepLabel>
           </Step>
         ))}
+      </Stepper> */}
+
+      <Stepper alternativeLabel activeStep={activeStep} connector={<QontoConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel className="QontoStepIcon-circle" StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+          </Step>
+        ))}
       </Stepper>
+
       {renderStepContent(activeStep)}
     </Box>
   );

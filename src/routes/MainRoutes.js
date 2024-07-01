@@ -33,7 +33,7 @@ const MainRoutes = {
       ),
       children: [
         {
-          path: 'Index',
+          path: '',
           element: <Index />
         },
         {

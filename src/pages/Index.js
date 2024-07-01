@@ -1,61 +1,48 @@
 import * as React from 'react';
 import MainCard from 'components/MainCard';
-// material-ui
-import { Card, Grid, Typography, CardMedia, Stack, Button } from '@mui/material';
+import { Card, Grid, Typography,  Stack, Button, Box } from '@mui/material';
 import morado from '../assets/images/morado.png';
 import Pasos from './Pasos';
 import logo from '../assets/images/logo.jpg';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const Index = () => {
-
-    const [mostrarPasos, setMostrarPasos] = React.useState(false);
+    const [inicioTramite, setInicioTramite] = React.useState(false);
 
     const handleInicioTramite = () => {
-        setMostrarPasos(true);
+        setInicioTramite(true);
     };
 
     return (
-        <MainCard >
-            <MainCard sx={{ display: 'flex', justifyContent: 'left', alignItems: 'center', border: '0', backgroundColor: '#ffffff' }}>
-        <img src={logo} alt="udla" width={100} />
-        <Typography>Videollamada Registro Civil</Typography>
-      </MainCard>
-            <Card border={1} m={1}>
-
-                <MainCard>
-                    <Typography gutterBottom variant="h5" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap: 3 }}>
-                        Ingresa tus datos para agendar una cita
-                    </Typography>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: '380px', marginTop: 100  // Ajusta esta altura según sea necesario
-                        }}>
-                            <CardMedia component="img" height="380" image={morado} alt="Imagen Cita Virtual" style={{
-                                display: 'flex', justifyContent: 'center', alignItems: 'center',
-                                objectFit: 'cover', // Opciones: 'contain', 'cover', 'fill', 'none', 'scale-down'
-                                width: '50%', // Ajusta la anchura al 100% del contenedor
-                                height: 'auto' // Ajusta la altura automáticamente
-                            }} /> </div>
-                        <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap: 3 }}>
-                            <Button variant="contained" margin="dense"
-                                onClick={handleInicioTramite}
-                            >
-                                Iniciar Trámite
-                            </Button>
-                        </Stack>
-                    </Grid>
-                </MainCard>
-
-                {mostrarPasos && 
-
-                <Pasos></Pasos>
-                
-                }
-
-            </Card>
+        <MainCard sx={{ width: '100%' }}>
+            <Box sx={{ display: 'flex', justifyContent: 'left', alignItems: 'center', border: '0', backgroundColor: '#ffffff' }}>
+                    <img src={logo} alt="logo" width='10%' />
+                    <Typography variant='h3' sx={{ margin:4}}>Videollamada Registro Civil</Typography>
+            </Box>
+            {!inicioTramite ? (
+                <Card border={1} m={1}>
+                   
+                        <Typography gutterBottom variant="h5" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', pt: 2, gap: 3 }}>
+                            Ingresa tus datos para agendar una cita
+                        </Typography >
+                        <Grid item xs={12} sm={12} md={12} lg={12} >
+                                {/* <CardMedia component="img" width={10} image={morado} alt="Imagen Cita Virtual" 
+                                 /> */}
+                                 <Grid sx={{ display: 'flex', justifyContent: 'center', minHeight: '250px' }}>
+                                 <img src={morado} alt="Imagen Cita Virtual" width='70%' />
+                                 </Grid>
+                                 
+                            <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom:3 }}>
+                                <Button variant="contained" margin="dense" onClick={handleInicioTramite}>
+                                    Iniciar Trámite  <ArrowForwardIcon/>
+                                </Button>
+                            </Stack>
+                        </Grid>
+                   
+                </Card>
+            ) : (
+                <Pasos />
+            )}
         </MainCard>
     );
 };
