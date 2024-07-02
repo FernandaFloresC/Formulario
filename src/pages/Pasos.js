@@ -163,7 +163,7 @@ export default function Pasos() {
     if (selectedDate != null) {
       obtenerHorarios()
     }
-  },[selectedDate]);
+  }, [selectedDate]);
 
   const guardarHorario = (horario) => {
     setHorarioSeleccionado(horarioSeleccionado === horario ? null : horario);
@@ -192,8 +192,8 @@ export default function Pasos() {
     Telefono: '',
     Tramite: '0',
     Obs: '',
-    hora_tomada:'',
-    dia:''
+    hora_tomada: '',
+    dia: ''
 
     // selectedDate: selectedDate,
     // horario: horario
@@ -315,8 +315,8 @@ export default function Pasos() {
 
   const [activeStep, setActiveStep] = React.useState(0);
 
-  // const [canProceed, setCanProceed] = useState(false);
-  // const [canProceed1, setCanProceed1] = useState(false);
+  const [canProceed, setCanProceed] = useState(false);
+  const [canProceed1, setCanProceed1] = useState(false);
   // const [canProceed2, setCanProceed2] = useState(false); // Define canProceed1 state
 
   const handleIngresarSolicitud = () => {
@@ -332,8 +332,9 @@ export default function Pasos() {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      // setCanProceed(true);
-      handleNext();
+      setCanProceed(true);
+      // handleNext();
+      setActiveStep(1)
     }
     else {
       console.log("Errores en el formulario:", validationErrors);
@@ -345,47 +346,41 @@ export default function Pasos() {
 
   async function handleAgendar() {
 
-    if (selectedDate && horarioSeleccionado) {
-      const agendamiento = {
-        fecha: selectedDate.format('YYYY-MM-DD'),
-        hora: horarioSeleccionado
-      };
-      console.log('Agendamiento:', agendamiento);
-    }
     // setCanProceed1(true);
     // handleNext();
 
     //valido
     // try {
-      const dia = selectedDate.$D.toString().padStart(2, '0');
-      const mes = (selectedDate.$M + 1).toString().padStart(2, '0');
-      const anio = selectedDate.$y;
+    const dia = selectedDate.$D.toString().padStart(2, '0');
+    const mes = (selectedDate.$M + 1).toString().padStart(2, '0');
+    const anio = selectedDate.$y;
 
-      const result = await axios.post(
-        "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/ReservarHora",
-        { dato: anio + '-' + mes + '-' + dia, dato_1: horarioSeleccionado, dato_2: formData.Tramite }
-      );
+    const result = await axios.post(
+      "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/ReservarHora",
+      { dato: anio + '-' + mes + '-' + dia, dato_1: horarioSeleccionado, dato_2: formData.Tramite }
+    );
+    console.log(anio + '-' + mes + '-' + dia)
+    console.log(horarioSeleccionado)
+    if (result.status === 200) {
 
+      setFormData({
+        ...formData,
+        ['hora_tomada']: horarioSeleccionado,
+        ['dia']: anio + '-' + mes + '-' + dia
+      });
+      if (result.data[0].detalle === 'Hora no disponible') {
+        alert('La hora ya fue tomada, por favor seleccionar hora')
+        obtenerHorarios()
 
-      if (result.status === 200) {
-        setFormData({
-          ...formData,
-          ['hora_tomada']: horarioSeleccionado
-        });
-        setFormData({
-          ...formData,
-          ['dia']: anio + '-' + mes + '-' + dia
-        });
-        if (result.data[0].detalle ==='Hora no disponible'){
-          alert('La hora ya fue tomada, por favor seleccionar hora')
-          obtenerHorarios()
-        };
-        if (result.data[0].detalle === 'Hora tomada con exito') {
-          alert('La hora a sigo agendada')
-          // setCanProceed1(true);
-          handleNext();
-        };
-      }
+      };
+      if (result.data[0].detalle === 'Hora tomada con exito') {
+        alert('La hora a sigo agendada')
+        setActiveStep(2)
+        guardarGestion()
+        // setCanProceed1(true);
+
+      };
+    }
     // } catch (error) {
     //   // Manejo de errores
     //   alert("Error al guardar la solicitud");
@@ -395,27 +390,22 @@ export default function Pasos() {
 
   }
 
+  async function guardarGestion() {
 
-  const handleNext = () => {
-    if (activeStep === 0 
-      // && !canProceed
-    ) {
-      return; // No avanza si no se puede proceder en el paso 0
+
+  
+
+    const result = await axios.post(
+      "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/GuardaGestion",
+      { dato: formData }
+    );
+
+    if (result.status===200){
+      alert('Gestion guardada con exito')
     }
-
-    if (activeStep === 1
-      //  && !canProceed1
-      ) {
-      return; // No avanza al paso 2 si canProceed1 es falso
-    }
-
-    // if (activeStep === 2 && !canProceed2) {
-    //   return; // No avanza al paso 3 si canProceed2 es falso
-    // }
-
-    const newActiveStep = activeStep + 1;
-    setActiveStep(newActiveStep);
   };
+
+
 
 
 
