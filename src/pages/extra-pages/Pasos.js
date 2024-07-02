@@ -7,18 +7,15 @@ import PersonPinIcon from '@mui/icons-material/PersonPin';
 import PersonIcon from '@mui/icons-material/Person';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
-// import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-// import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-// import CancelIcon from '@mui/icons-material/Cancel';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import MainCard from 'components/MainCard';
-import '../css/general.css';
-import morado from '../assets/images/morado.png';
-import verde from '../assets/images/verde.png';
-import logo from '../assets/images/logo.jpg';
+import '../../css/general.css';
+import morado from '../../assets/images/morado.png';
+import verde from '../../assets/images/verde.png';
+import logo from '../../assets/images/logo.jpg';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
 const steps = ['Solicitud', 'Agenda', 'Hora agendada'];
@@ -28,6 +25,25 @@ export default function Pasos() {
   const [data, setData] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [horarioSeleccionado, setHorarioSeleccionado] = useState(null);
+  const [seleccionFin, setSeleccionFin] = useState('');
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    const newActiveStep = activeStep + 1;
+    setActiveStep(newActiveStep);
+  };
+
+  const handleInicioTramite = () => {
+    handleNext();
+  };
+
+  const handleIngresarSolicitud = () => {
+    handleNext();
+  };
+
+  const handleAgendar = () => {
+    handleNext();
+  };
 
   const shouldDisableDate = (date) => {
     const dayOfWeek = date.day();
@@ -47,50 +63,10 @@ export default function Pasos() {
   const guardarHorario = (horario) => {
     setHorarioSeleccionado(horarioSeleccionado === horario ? null : horario);
   };
-  const [seleccionFin, setSeleccionFin] = useState('');
-  const [activeStep, setActiveStep] = React.useState(0);
 
-  const [canProceed, setCanProceed] = useState(false);
-  const [canProceed1, setCanProceed1] = useState(false);
-  const [canProceed2, setCanProceed2] = useState(false); // Define canProceed1 state
-
-
-  const handleNext = () => {
-    if (activeStep === 0 && !canProceed) {
-      return; // No avanza si no se puede proceder en el paso 0
-    }
-
-    if (activeStep === 1 && !canProceed1) {
-      return; // No avanza al paso 2 si canProceed1 es falso
-    }
-
-    if (activeStep === 2 && !canProceed2) {
-      return; // No avanza al paso 3 si canProceed2 es falso
-    }
-
-    const newActiveStep = activeStep + 1;
-    setActiveStep(newActiveStep);
-  };
-
-  const handleInicioTramite = () => {
-    setCanProceed(true);
-    handleNext();
-  };
-  const handleIngresarSolicitud = () => {
-    setCanProceed1(true);
-    handleNext();
-  };
-  const handleAgendar = () => {
-    setCanProceed2(true);
-    handleNext();
-  };
   const handleInputChange = (e) => {
-    // Validaciones para el paso 1
-    const nombre = e.target.value;
-    const email = e.target.value;
-
-    const puedeProceder = nombre !== '' && email !== '';
-    setCanProceed1(puedeProceder);
+    // Validaciones para el paso 1 (si es necesario)
+    console.log(e)
   };
 
   const renderStepContent = (step) => {

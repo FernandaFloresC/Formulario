@@ -92,7 +92,7 @@ QontoStepIcon.propTypes = {
 
 const steps = ['Solicitud', 'Agenda'];
 // 'Hora agendada'
-import { setUrl, setSesiones} from 'components/Common';
+import { setUrl, setSesiones } from 'components/Common';
 
 
 const url = setUrl()
@@ -119,6 +119,7 @@ export default function Pasos() {
   useEffect(() => {
     obtenerHorarios();
   }, []);
+
   useEffect(() => {
     if (selectedDate && horarioSeleccionado) {
       setDisabledFinalizar(false);
@@ -126,25 +127,43 @@ export default function Pasos() {
       setDisabledFinalizar(true);
     }
     console.log(selectedDate)
-    console.log(horarioSeleccionado)
-
+    // console.log(selectedDate.$y + '-' + (parseInt(selectedDate.$M) + 1) + '-' + selectedDate.$D)
+    // console.log(horarioSeleccionado)
   }, [selectedDate, horarioSeleccionado]);
 
-  const obtenerHorarios = async () => {
-    // const horarios = ['09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
 
+  async function obtenerHorarios() {
+    const horarios = ['09:30', '10:00', '10:30', '11:00', '11:30', '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30'];
+    const dia = selectedDate.$D.toString().padStart(2, '0');
+    const mes = (selectedDate.$M + 1).toString().padStart(2, '0');
+    const anio = selectedDate.$y;
 
-    const horarios = await axios.post('https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/HorarioDisponible',
-      { dato: horarioSeleccionado, dato_1: Tramite },
-      { headers: { "Authorization": `Bearer ${sesiones.stoken}` } })
+    const result = await axios.post(
+      "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/HorarioDisponible",
+      { dato: anio + '-' + mes + '-' + dia, dato_1: formData.Tramite }
+      // ,{ headers: { Authorization: `Bearer ${valorToken}` } }
+    );
 
-    if (horarios.status === 200) {
-      console.log(horarios)
-      setData();
+    if (result.status === 200) {
 
+      // Obtener los horarios de la respuesta
+      const horariosOcupados = result.data.map(item => item.hora);
+
+      // Filtrar la lista de horarios originales para eliminar los ocupados
+      const horariosDisponibles = horarios.filter(horario => !horariosOcupados.includes(horario));
+
+      // Imprimir los horarios disponibles
+      setData(horariosDisponibles)
     }
-
   };
+
+
+
+  useEffect(() => {
+    if (selectedDate != null) {
+      obtenerHorarios()
+    }
+  },[selectedDate]);
 
   const guardarHorario = (horario) => {
     setHorarioSeleccionado(horarioSeleccionado === horario ? null : horario);
@@ -173,6 +192,8 @@ export default function Pasos() {
     Telefono: '',
     Tramite: '0',
     Obs: '',
+    hora_tomada:'',
+    dia:''
 
     // selectedDate: selectedDate,
     // horario: horario
@@ -212,8 +233,8 @@ export default function Pasos() {
 
   const handleChange = (e) => {
     const { value, name } = e.target;
-    console.log(name, value)
-    console.log(e)
+    // console.log(name, value)
+    // console.log(e)
     if ((name === "Tramite") && value === '0') {
       alert("Debe seleccionar una Opción")
       return
@@ -294,8 +315,8 @@ export default function Pasos() {
 
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const [canProceed, setCanProceed] = useState(false);
-  const [canProceed1, setCanProceed1] = useState(false);
+  // const [canProceed, setCanProceed] = useState(false);
+  // const [canProceed1, setCanProceed1] = useState(false);
   // const [canProceed2, setCanProceed2] = useState(false); // Define canProceed1 state
 
   const handleIngresarSolicitud = () => {
@@ -311,7 +332,7 @@ export default function Pasos() {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      setCanProceed(true);
+      // setCanProceed(true);
       handleNext();
     }
     else {
@@ -323,51 +344,68 @@ export default function Pasos() {
 
 
   async function handleAgendar() {
-    
+
     if (selectedDate && horarioSeleccionado) {
       const agendamiento = {
         fecha: selectedDate.format('YYYY-MM-DD'),
         hora: horarioSeleccionado
       };
-       console.log('Agendamiento:', agendamiento);
+      console.log('Agendamiento:', agendamiento);
     }
     // setCanProceed1(true);
     // handleNext();
 
     //valido
-    try {
-      const id = []
+    // try {
+      const dia = selectedDate.$D.toString().padStart(2, '0');
+      const mes = (selectedDate.$M + 1).toString().padStart(2, '0');
+      const anio = selectedDate.$y;
 
-      // id.push(formData)
-      console.log(id);
-      console.log(result)
       const result = await axios.post(
-        "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/GuardaGestion",
-        { dato: id, dato_1: detalle }
+        "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/ReservarHora",
+        { dato: anio + '-' + mes + '-' + dia, dato_1: horarioSeleccionado, dato_2: formData.Tramite }
       );
 
-     
-      if (result.status === 200) {
-        setDisabledFinalizar(true)
-        setCanProceed1(true);
-        handleNext();
-      }
-    } catch (error) {
-      // Manejo de errores
-      alert("Error al guardar la solicitud");
-      console.log("Error Con guardado");
 
-    }
+      if (result.status === 200) {
+        setFormData({
+          ...formData,
+          ['hora_tomada']: horarioSeleccionado
+        });
+        setFormData({
+          ...formData,
+          ['dia']: anio + '-' + mes + '-' + dia
+        });
+        if (result.data[0].detalle ==='Hora no disponible'){
+          alert('La hora ya fue tomada, por favor seleccionar hora')
+          obtenerHorarios()
+        };
+        if (result.data[0].detalle === 'Hora tomada con exito') {
+          alert('La hora a sigo agendada')
+          // setCanProceed1(true);
+          handleNext();
+        };
+      }
+    // } catch (error) {
+    //   // Manejo de errores
+    //   alert("Error al guardar la solicitud");
+    //   console.log("Error Con guardado");
+
+    // }
 
   }
 
 
   const handleNext = () => {
-    if (activeStep === 0 && !canProceed) {
+    if (activeStep === 0 
+      // && !canProceed
+    ) {
       return; // No avanza si no se puede proceder en el paso 0
     }
 
-    if (activeStep === 1 && !canProceed1) {
+    if (activeStep === 1
+      //  && !canProceed1
+      ) {
       return; // No avanza al paso 2 si canProceed1 es falso
     }
 
@@ -498,7 +536,7 @@ export default function Pasos() {
                         minDate={today}
                         shouldDisableDate={shouldDisableDate}
                         shouldDisableAllKeyboardEvents
-                       className="custom-date-calendar"
+                        className="custom-date-calendar"
                       />
                     </LocalizationProvider>
                   </Box>
@@ -544,7 +582,7 @@ export default function Pasos() {
         return (
           <MainCard>
             <Typography gutterBottom variant="h4" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'underline', marginBottom: 2 }}>
-              La cita de atención fue agendada para el: {console.log(formData.selectedDate)} a las {console.log(formData.horarios)} hrs.
+              La cita de atención fue agendada para el: {formData.dia} a las {formData.hora_tomada} hrs.
             </Typography>
             <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
               <img src={verde} alt="Imagen Cita Virtual Agendada" width='80%' />

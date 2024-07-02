@@ -3,6 +3,7 @@ import MainCard from 'components/MainCard';
 import { Card, Grid, Typography,  Stack, Button, Box } from '@mui/material';
 import morado from '../assets/images/morado.png';
 import Pasos from './Pasos';
+//import Pasos from '../pages/extra-pages/Pasos' //el de prueba
 import logo from '../assets/images/logo.jpg';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
