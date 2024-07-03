@@ -181,7 +181,7 @@ export default function Pasos() {
   };
 
   const [formData, setFormData] = useState({
-    // Idllamada: obtenerGuiBase(),
+    Idllamada: '',
     // Fechasolicitud: obtenerFecha(),
     // Horasolicitud: obtenerHora(),
     Nombre: '',
@@ -363,22 +363,22 @@ export default function Pasos() {
     console.log(horarioSeleccionado)
     if (result.status === 200) {
 
-      setFormData({
-        ...formData,
-        ['hora_tomada']: horarioSeleccionado,
-        ['dia']: anio + '-' + mes + '-' + dia
-      });
       if (result.data[0].detalle === 'Hora no disponible') {
         alert('La hora ya fue tomada, por favor seleccionar hora')
         obtenerHorarios()
+
 
       };
       if (result.data[0].detalle === 'Hora tomada con exito') {
         alert('La hora a sigo agendada')
         setActiveStep(2)
-        guardarGestion()
-        // setCanProceed1(true);
-
+        console.log(result.data[0].id)
+        setFormData({
+          ...formData,
+          ['Idllamada']: result.data[0].id,
+           ['hora_tomada']: horarioSeleccionado,
+          ['dia']: anio + '-' + mes + '-' + dia
+        });
       };
     }
     // } catch (error) {
@@ -387,20 +387,26 @@ export default function Pasos() {
     //   console.log("Error Con guardado");
 
     // }
-
   }
+
+  useEffect(() => {
+    if (formData.Idllamada != '') {
+      guardarGestion();
+    }
+  }, [formData.Idllamada]);
+
 
   async function guardarGestion() {
 
 
-  
+
 
     const result = await axios.post(
       "https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/GuardaGestion",
       { dato: formData }
     );
 
-    if (result.status===200){
+    if (result.status === 200) {
       alert('Gestion guardada con exito')
     }
   };
@@ -573,6 +579,9 @@ export default function Pasos() {
           <MainCard>
             <Typography gutterBottom variant="h4" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'underline', marginBottom: 2 }}>
               La cita de atención fue agendada para el: {formData.dia} a las {formData.hora_tomada} hrs.
+            </Typography>
+            <Typography gutterBottom variant="h4" component="div" sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textDecoration: 'underline', marginBottom: 2 }}>
+              El número de su solicitud es N°{formData.Idllamada}
             </Typography>
             <Grid sx={{ display: 'flex', justifyContent: 'center' }}>
               <img src={verde} alt="Imagen Cita Virtual Agendada" width='80%' />
