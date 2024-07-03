@@ -39,6 +39,7 @@
     "react-router-dom": "^6.4.2",
     "react-scripts": "^5.0.1",
     "react-timer-hook": "^3.0.5",
+    "react-toastify": "^10.0.5",
     "react18-input-otp": "^1.1.0",
     "redux": "^4.2.0",
     "simplebar": "^5.3.8",

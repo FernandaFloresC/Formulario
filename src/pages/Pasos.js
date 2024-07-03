@@ -99,7 +99,7 @@ const url = setUrl()
 // const direccion = setDireccion();
 console.log(url);
 const sesiones = setSesiones();
-
+console.log(sesiones)
 export default function Pasos() {
 
   const [disabledFinalizar, setDisabledFinalizar] = useState(true);
@@ -155,7 +155,7 @@ export default function Pasos() {
       // Imprimir los horarios disponibles
       setData(horariosDisponibles)
     }
-  };
+  }
 
 
 
@@ -317,6 +317,10 @@ export default function Pasos() {
 
   const [canProceed, setCanProceed] = useState(false);
   const [canProceed1, setCanProceed1] = useState(false);
+  console.log(canProceed)
+  console.log(canProceed1)
+  console.log(setCanProceed1)
+
   // const [canProceed2, setCanProceed2] = useState(false); // Define canProceed1 state
 
   const handleIngresarSolicitud = () => {
@@ -364,13 +368,13 @@ export default function Pasos() {
     if (result.status === 200) {
 
       if (result.data[0].detalle === 'Hora no disponible') {
-        alert('La hora ya fue tomada, por favor seleccionar hora')
+        alert('La hora ya fue tomada, por favor seleccionar otra hora')
         obtenerHorarios()
 
 
-      };
+      }
       if (result.data[0].detalle === 'Hora tomada con exito') {
-        alert('La hora a sigo agendada')
+        // alert('La hora ha sido agendada')
         setActiveStep(2)
         console.log(result.data[0].id)
         setFormData({
@@ -379,7 +383,7 @@ export default function Pasos() {
            ['hora_tomada']: horarioSeleccionado,
           ['dia']: anio + '-' + mes + '-' + dia
         });
-      };
+      }
     }
     // } catch (error) {
     //   // Manejo de errores
@@ -407,9 +411,9 @@ export default function Pasos() {
     );
 
     if (result.status === 200) {
-      alert('Gestion guardada con exito')
+      alert('¡Gestión guardada con éxito!')
     }
-  };
+  }
 
 
 
