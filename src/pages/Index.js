@@ -1,10 +1,10 @@
 import * as React from 'react';
 import MainCard from 'components/MainCard';
 import { Card, Grid, Typography,  Stack, Button, Box } from '@mui/material';
-import morado from '../assets/images/morado.png';
+import morado from '../assets/images/videoconferencia.png';
 import Pasos from './Pasos';
 //import Pasos from '../pages/extra-pages/Pasos' //el de prueba
-import logo from '../assets/images/logo.jpg';
+import logo from '../assets/images/agendamiento.png';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
 const Index = () => {
@@ -18,7 +18,7 @@ const Index = () => {
         <MainCard sx={{ width: '100%' }}>
             <Box sx={{ display: 'flex', justifyContent: 'left', alignItems: 'center', border: '0', backgroundColor: '#ffffff' }}>
                     <img src={logo} alt="logo" width='10%' />
-                    <Typography variant='h3' sx={{ margin:4}}>Videollamada Registro Civil</Typography>
+                    <Typography variant='h3' sx={{ margin:4}}>Agenda</Typography>
             </Box>
             {!inicioTramite ? (
                 <Card border={1} m={1}>

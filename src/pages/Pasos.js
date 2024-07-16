@@ -294,7 +294,7 @@ export default function Pasos() {
         });
       }
       if (formData.Codigo !== '2') {
-        const finalValue = cleanedValue.slice(0, 10);
+        const finalValue = cleanedValue.slice(0, 9);
         setFormData({
           ...formData,
           [name]: finalValue
@@ -329,7 +329,7 @@ export default function Pasos() {
     if (!formData.Rut || errors.Rut) validationErrors.Rut = "RUT es requerido y debe ser válido";
     if (!formData.Email || errors.Email) validationErrors.Email = "Email es requerido y debe ser válido";
     if (!formData.Confirm_email || errors.Confirm_email) validationErrors.Confirm_email = "Email de Confirmación no coincide";
-    if (!formData.Telefono || errors.Telefono || formData.Telefono.length < 8) validationErrors.Telefono = "Teléfono es requerido y debe ser válido";
+    if (!formData.Telefono || errors.Telefono || formData.Telefono.length <= 8) validationErrors.Telefono = "Teléfono es requerido y debe ser válido";
     if (formData.Tramite === '0') validationErrors.Tramite = "Debe seleccionar un Trámite, es obligatorio";
 
 
