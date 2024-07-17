@@ -33,14 +33,14 @@ export const setUrl = () => {
 }
 
 
-export const setDireccion = () => {
-    // const direcion = '/Orkesta/Aporta/VentasCRM'
-    // const direcion = ''
-    const direccion = '/Formulario/'
-    // const direccion = ''
-    return direccion
+// export const setDireccion = () => {
+//     // const direcion = '/Orkesta/Aporta/VentasCRM'
+//     // const direcion = ''
+//     const direccion = '/Formulario/'
+//     // const direccion = ''
+//     return direccion
 
-}
+// }
 
 export const sesiones = {
     sgui: '',
@@ -97,7 +97,7 @@ export const GetSesiones = () => {
     return sesiones_h
 }
 
-export const direccion = '/Formulario/';
+// export const direccion = '/Formulario/';
 
 export const removeSetSession = () => {
     // Reset the properties of the sesiones object to empty strings

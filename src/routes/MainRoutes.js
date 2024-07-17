@@ -23,21 +23,21 @@ const Index = Loadable(lazy(() => import('../pages/Index')));
 // ==============================|| MAIN ROUTING ||============================== //
 
 const MainRoutes = {
-  path: '/Formulario',
+  // path: '/Formulario',
   children: [
     {
-      path: '/Formulario',
+      // path: '/Formulario',
       element: (
         <MainLayout />
       
       ),
       children: [
         {
-          path: '',
+          // path: '',
           element: <Index />
         },
         {
-          path: 'Tramite',
+          // path: 'Tramite',
           element: <Pasos />
         },
         // {
