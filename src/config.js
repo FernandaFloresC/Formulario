@@ -9,7 +9,7 @@ export const LAYOUT_CONST = {
   HORIZONTAL_LAYOUT: 'horizontal'
 };
 
-export const APP_DEFAULT_PATH = '/Orkesta/Aporta/VideollamadaRegistroCivil/Call';
+export const APP_DEFAULT_PATH = '/Formulario';
 export const HORIZONTAL_MAX_ITEM = 6;
 export const DRAWER_WIDTH = 260;
 

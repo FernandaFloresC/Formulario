@@ -26,22 +26,17 @@ export const setUserSession = (token, user) => {
 }
 
 export const setUrl = () => {
-    // https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api/Ventas/Call/HorarioDisponible
-    const url = 'https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api'
+    //  const url = 'https://app.soluziona.cl/API_v1_prod/Aporta/API_Aporta_Registro_Civil_Videollamada/api'
+    // return url
+    const url = ''
     return url
-
 }
-export const setUrlCalidad = () => {
 
-    const url_calidad = 'https://app.soluziona.cl/API_v1_prod/CallSouthPeru/API_CRM_RetencionesClinica/api/'
-    return url_calidad
-
-}
 
 export const setDireccion = () => {
     // const direcion = '/Orkesta/Aporta/VentasCRM'
     // const direcion = ''
-    const direccion = '/Orkesta/Aporta/VideollamadaRegistroCivil/Call/'
+    const direccion = '/Formulario/'
     // const direccion = ''
     return direccion
 
@@ -102,7 +97,7 @@ export const GetSesiones = () => {
     return sesiones_h
 }
 
-export const direccion = '/Orkesta/CallSouthPeru/MetlifeRetenciones/CRM/';
+export const direccion = '/Formulario/';
 
 export const removeSetSession = () => {
     // Reset the properties of the sesiones object to empty strings

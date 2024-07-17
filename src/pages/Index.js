@@ -30,7 +30,7 @@ const Index = () => {
                                 {/* <CardMedia component="img" width={10} image={morado} alt="Imagen Cita Virtual" 
                                  /> */}
                                  <Grid sx={{ display: 'flex', justifyContent: 'center', minHeight: '250px' }}>
-                                 <img src={morado} alt="Imagen Cita Virtual" width='70%' />
+                                 <img src={morado} alt="Imagen Cita Virtual" width='50%' />
                                  </Grid>
                                  
                             <Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom:3 }}>
