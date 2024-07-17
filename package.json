@@ -1,6 +1,6 @@
 {
   "name": "formulario",
-  "homepage": "/Formulario",
+ 
   "version": "2.0.0",
   "private": true,
   "dependencies": {
